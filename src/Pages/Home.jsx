@@ -1,56 +1,54 @@
 import { useState, useEffect } from "react";
-import {
-  connectWallet,
-  getCurrentWalletConnected,
-} from "../Utils/walletInteract";
+import Web3 from "web3";
+import { claimDividends } from "../Utils/walletInteract";
+import MCFabi from "../ABI/mcfabi.json";
+const web3 = new Web3("https://bsc-dataseed1.binance.org");
+const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 export const Home = () => {
-  const [walletAddress, setWallet] = useState("");
-  const [, /*status*/ setStatus] = useState("");
+  const [dividend, setDividends] = useState("");
+  const [price, setPrice] = useState("");
 
-  function addWalletListener() {
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
-        if (accounts.length > 0) {
-          setWallet(accounts[0]);
-          setStatus("👆🏽 Write a message in the text-field above.");
-        } else {
-          setWallet("");
-          setStatus("🦊 Connect to Metamask using the top right button.");
-        }
-      });
-    } else {
-      setStatus(
-        <p>
-          {" "}
-          🦊{" "}
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href={`https://metamask.io/download.html`}
-          >
-            You must install Metamask, a virtual Ethereum wallet, in your
-            browser.
-          </a>
-        </p>
-      );
-    }
+  async function pullDividends() {
+    let dividends = await mcfHandler.methods
+      .getTotalDividendsDistributed()
+      .call();
+    setDividends(dividends);
   }
 
-  const connectWalletPressed = async () => {
-    const walletResponse = await connectWallet();
-    setStatus(walletResponse.status);
-    setWallet(walletResponse.address);
+  const claimDividends = async () => {
+    mcfHandler.methods.claim().call();
   };
 
   useEffect(() => {
-    async function myFunction() {
-      const { address, status } = await getCurrentWalletConnected();
-      setWallet(address);
-      setStatus(status);
-      addWalletListener();
-    }
-    myFunction();
+    pullDividends();
   }, []);
 
-  return <div className="class">Hello world</div>;
+  return (
+    <main>
+      <div className="BoxContainers">
+        <div className="totalDivs">
+          <h1>Total BUSD reflected to holders :heart:</h1>
+          <span className="NumberColor">
+            {dividend / 10 ** 18} <span>BUSD so far!</span>
+          </span>
+        </div>
+        <div className="currentPrice">Here goes price</div>
+
+        <div className="multiBoxContainer">
+          <button
+            className="claimDividends"
+            onClick={() => {
+              claimDividends();
+            }}
+          >
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front text">Claim dividends</span>
+          </button>
+        </div>
+      </div>
+      ;
+    </main>
+  );
 };

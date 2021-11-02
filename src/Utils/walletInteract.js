@@ -1,6 +1,8 @@
-//import Web3 from "web3";
-//const web3 = new Web3();
-
+import Web3 from "web3";
+import MCFabi from "../ABI/mcfabi.json";
+const web3 = new Web3("https://bsc-dataseed1.binance.org");
+const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 export const connectWallet = async () => {
   if (window.ethereum) {
     try {
@@ -82,4 +84,8 @@ export const getCurrentWalletConnected = async () => {
       ),
     };
   }
+};
+
+export const claimDividends = async () => {
+  mcfHandler.methods.claim().call();
 };
