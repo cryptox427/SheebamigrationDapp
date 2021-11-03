@@ -7,15 +7,16 @@ import {
   Route,
 } from "react-router-dom";
 import { Stats } from "../src/Pages/Home";
-import { Header } from "../src/Layout/Header/Header";
+import { Layout } from "./Layout/Layout";
 function App() {
   return (
     <Router>
-      <Header />
-      <Switch>
-        <Route exact path="/stats" component={Stats}></Route>
-        <Redirect to="/stats" />
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route exact path="/stats" component={Stats}></Route>
+          <Redirect to="/stats" />
+        </Switch>
+      </Layout>
     </Router>
   );
 }
