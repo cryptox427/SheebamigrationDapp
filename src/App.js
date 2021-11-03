@@ -7,7 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import { Stats } from "../src/Pages/Home";
-import { Header } from "./Layout/Header/Header";
+import { Header } from "../src/Layout/Header/Header";
 function App() {
   return (
     <Router>
