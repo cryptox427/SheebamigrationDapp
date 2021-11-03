@@ -49,7 +49,7 @@ export const Stats = () => {
   }
   useEffect(() => {
     async function magic() {
-      const { address, status } = await getCurrentWalletConnected();
+      const { address } = await getCurrentWalletConnected();
       setWallet(address);
       addWalletListener();
       pullDividends();
