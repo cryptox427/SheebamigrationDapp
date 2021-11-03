@@ -5,6 +5,9 @@ import {
   getCurrentWalletConnected,
 } from "../Utils/walletInteract";
 import MCFabi from "../ABI/mcfabi.json";
+import upperCables from "../Images/top cable double.png";
+import midCable from "../Images/mid cable double.png";
+import lowCable from "../Images/mid cable smol.png";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
@@ -16,7 +19,7 @@ if (ethereum) {
   });
 }
 
-export const Home = () => {
+export const Stats = () => {
   const [dividend, setDividends] = useState("");
   const [userDividends, setClaimable] = useState("");
   const [wallet, setWallet] = useState("");
@@ -56,15 +59,18 @@ export const Home = () => {
       }
     }
     magic();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(wallet);
   return (
     <div className="BoxContainers">
+      <img src={upperCables} alt="" />
       <div className="totalDivs">
         <h1>Total BUSD reflected to holders #128151</h1>
         <span className="NumberColor">{dividend / 10 ** 18} BUSD</span>
       </div>
+      <img src={midCable} alt="" />
       <div className="divsBoxContainer">
         <span className="textAboveDivs"> Your BUSD rewards</span>
         <div className="claimableDividends">
@@ -75,6 +81,7 @@ export const Home = () => {
           )}
         </div>
       </div>
+      <img src={lowCable} alt="" />
 
       <div className="multiBoxContainer">
         <button

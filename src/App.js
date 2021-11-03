@@ -6,13 +6,16 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
-import { Home } from "../src/Pages/Home";
+import { Stats } from "../src/Pages/Home";
 import { Header } from "./Layout/Header/Header";
 function App() {
   return (
     <Router>
       <Header />
-      <Home />
+      <Switch>
+        <Route exact path="/stats" component={Stats}></Route>
+        <Redirect to="/stats" />
+      </Switch>
     </Router>
   );
 }
