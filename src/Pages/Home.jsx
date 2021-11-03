@@ -5,7 +5,7 @@ import {
   getCurrentWalletConnected,
 } from "../Utils/walletInteract";
 import MCFabi from "../ABI/mcfabi.json";
-const web3 = new Web3("https://bsc-dataseed1.binance.org");
+const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 
@@ -18,64 +18,80 @@ if (ethereum) {
 
 export const Home = () => {
   const [dividend, setDividends] = useState("");
-  const [price, setPrice] = useState("");
+  const [userDividends, setClaimable] = useState("");
   const [wallet, setWallet] = useState("");
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
           setWallet(accounts[0]);
+          getUserDividends(accounts[0]);
         } else {
           setWallet("");
         }
       });
     }
   }
-  useEffect(() => {
-    async function magic() {
-      const { address, status } = await getCurrentWalletConnected();
-      setWallet(address);
-      addWalletListener();
-    }
-    magic();
-  }, []);
-
   async function pullDividends() {
     let dividends = await mcfHandler.methods
       .getTotalDividendsDistributed()
       .call();
     setDividends(dividends);
   }
-
+  async function getUserDividends(userAddress) {
+    let userDividends = await mcfHandler.methods
+      .withdrawableDividendOf(userAddress)
+      .call();
+    setClaimable(userDividends / 10 ** 18);
+  }
   useEffect(() => {
-    pullDividends();
+    async function magic() {
+      const { address, status } = await getCurrentWalletConnected();
+      setWallet(address);
+      addWalletListener();
+      pullDividends();
+      if (wallet.length > 0) {
+        getUserDividends(wallet);
+        console.log(claimDividends);
+      }
+    }
+    magic();
   }, []);
 
+  console.log(wallet);
   return (
-    <main>
-      <div className="BoxContainers">
-        <div className="totalDivs">
-          <h1>Total BUSD reflected to holders :heart:</h1>
-          <span className="NumberColor">
-            {dividend / 10 ** 18} <span>BUSD so far!</span>
-          </span>
-        </div>
-        <div className="currentPrice">Here goes price</div>
-
-        <div className="multiBoxContainer">
-          <button
-            className="claimDividends"
-            onClick={() => {
-              claimDividends();
-            }}
-          >
-            <span class="shadow"></span>
-            <span class="edge"></span>
-            <span class="front text">Claim</span>
-          </button>
+    <div className="BoxContainers">
+      <div className="totalDivs">
+        <h1>Total BUSD reflected to holders #128151</h1>
+        <span className="NumberColor">{dividend / 10 ** 18} BUSD</span>
+      </div>
+      <div className="divsBoxContainer">
+        <span className="textAboveDivs"> Your BUSD rewards</span>
+        <div className="claimableDividends">
+          {wallet.length > 0 ? (
+            <span className="NumberColor">$ {userDividends}</span>
+          ) : (
+            <span class="">Connect your wallet</span>
+          )}
         </div>
       </div>
-      ;
-    </main>
+
+      <div className="multiBoxContainer">
+        <button
+          className="claimDividends"
+          onClick={() => {
+            wallet.length <= 0 ? console.log("no") : claimDividends();
+          }}
+        >
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          {wallet.length > 0 ? (
+            <span className="front text">claim</span>
+          ) : (
+            <span class="front text">Connect your wallet to claim</span>
+          )}
+        </button>
+      </div>
+    </div>
   );
 };

@@ -5,6 +5,10 @@
   width: 100%;
 }
 
+@font-face {
+  font-family: "DS-Digital";
+  src: local("DS-Digital"), url(./Fonts/DS-DIGI.TTF) format("truetype");
+}
 .leftContainer {
 }
 .rightContainer {
@@ -31,7 +35,7 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  gap: 30px;
+  gap: 50px;
   height: 100%;
 }
 
@@ -119,50 +123,51 @@ button:focus:not(:focus-visible) {
 }
 
 .totalDivs {
-  font-family: "Raleway", sans-serif;
+  color: #39ff14;
+  font-family: "DS-Digital", sans-serif;
   display: flex;
   flex-flow: column;
   align-items: center;
   text-align: center;
   padding: 30px;
-  border-radius: 23px;
-  background: linear-gradient(45deg, #cacaca, #f0f0f0);
-  box-shadow: 20px -20px 60px #bebebe, -20px 20px 60px #ffffff;
+  background: linear-gradient(90deg, #000000 90%, #555555);
+  box-shadow: 20px -20px 60px #bebebe, -20px 20px 60px #000000;
+  border-style: solid;
+  border-color: #757575;
+  border-width: 10px;
 }
 
 .currentPrice {
-  font-family: "Raleway", sans-serif;
+  color: #39ff14;
+  font-family: "DS-Digital", sans-serif;
   display: flex;
   flex-flow: column;
   align-items: center;
   text-align: center;
   padding: 30px;
-  border-radius: 23px;
-  background: linear-gradient(45deg, #cacaca, #db1c12);
+  background: linear-gradient(90deg, #000000 90%, #555555);
   box-shadow: 20px -20px 60px #bebebe, -20px 20px 60px #ffffff;
   width: 28%;
+  border-style: solid;
+  border-color: #757575;
+  border-width: 7px;
+}
+.claimableDividends {
+  color: #39ff14;
+  font-family: "DS-Digital", sans-serif;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+  background-color: #000000;
+  width: 92%;
 }
 .multiBoxContainer {
   flex-wrap: wrap;
   row-gap: 25px;
 }
-body {
-  background-image: linear-gradient(
-    to right top,
-    #d16ba5,
-    #c777b9,
-    #ba83ca,
-    #aa8fd8,
-    #9a9ae1,
-    #8aa7ec,
-    #79b3f4,
-    #69bff8,
-    #52cffe,
-    #41dfff,
-    #46eefa,
-    #5ffbf1
-  );
-}
+
 .claimDividends {
   font-family: "Raleway", sans-serif;
   position: relative;
@@ -176,5 +181,24 @@ body {
   touch-action: manipulation;
 }
 .NumberColor {
-  font-size: x-large;
+  color: #14ff47;
+  font-size: xxx-large;
+}
+.divsBoxContainer {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
+  padding: 30px;
+  background: linear-gradient(45deg, #555555 33%, #636363 66%, #808080 99%);
+  box-shadow: 20px -20px 60px #bebebe, -20px 20px 60px #ffffff;
+  width: 28%;
+}
+
+.textAboveDivs {
+  color: #fcff2e;
+  font-family: "Raleway", sans-serif;
+  font-size: xx-large;
+  font-weight: 900;
 }
