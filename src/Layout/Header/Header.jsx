@@ -56,9 +56,7 @@ export const Header = () => {
   return (
     <div className="mainHeaderContainer">
       <div className="inContain">
-        <div className="leftContainer">
-          <a href=""></a>a
-        </div>
+        <div className="leftContainer"></div>
         <div className="middleContainer">
           <img src={logo} alt="" className="logo" />
         </div>
