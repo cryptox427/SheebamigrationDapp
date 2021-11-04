@@ -57,9 +57,7 @@ export const Header = () => {
     <div className="mainHeaderContainer">
       <div className="inContain">
         <div className="leftContainer"></div>
-        <div className="middleContainer">
-          <img src={logo} alt="" className="logo" />
-        </div>
+        <div className="middleContainer"></div>
         <div className="rightContainer">
           <button
             className="connectWalletButton"

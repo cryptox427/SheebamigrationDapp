@@ -16,7 +16,7 @@
   flex-flow: row;
 }
 .middleContainer {
-  position: absolute;
+  height: 50%;
 }
 
 .inContain {
