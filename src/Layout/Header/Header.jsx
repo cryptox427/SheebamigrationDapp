@@ -4,7 +4,7 @@ import {
   connectWallet,
   getCurrentWalletConnected,
 } from "../../Utils/walletInteract";
-import logo from "../../Images/logo.png";
+
 export const Header = () => {
   const [walletAddress, setWallet] = useState("");
   const [, /*status*/ setStatus] = useState("");
