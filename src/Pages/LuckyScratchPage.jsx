@@ -50,7 +50,7 @@ const initialPricesState = [
   },
   {
     logo: price4,
-    price: "125,000",
+    price: "12,500",
   },
   {
     logo: price5,
@@ -208,7 +208,7 @@ export const LuckyScratchPage = () => {
         <div className="w-screen mt-10 mb-20 xl:my-0 flex flex-col xl:flex-row items-center justify-center gap-10 text-blue-900">
           <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
             <h1 className="font-bold text-blue-900 text-center text-xl">
-              Price Chart
+              Prize Chart
             </h1>
             <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl p-5 bg-yellow">
               {prices.map(({ logo, price }) => (
