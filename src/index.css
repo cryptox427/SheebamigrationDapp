@@ -35,6 +35,10 @@
   background-color: #db1c12;
 }
 
+.border-yellow {
+  border-color: #fcff2e;
+}
+
 .inContain {
   display: flex;
   flex-flow: row;
