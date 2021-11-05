@@ -10,6 +10,13 @@ import price4 from "../Images/prize 4.png";
 import price5 from "../Images/prize 5.png";
 import price6 from "../Images/prize 6.png";
 import mcfCoin from "../Images/mcf coin.png";
+import match1 from "../Images/arm1.png";
+import match2 from "../Images/arm2.png";
+import match3 from "../Images/cardbg.png";
+import match4 from "../Images/coin.png";
+import match5 from "../Images/match3text.png";
+import match6 from "../Images/title.png";
+
 import MCFabi from "../ABI/mcfabi.json";
 import Web3 from "web3";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
@@ -26,27 +33,27 @@ if (ethereum) {
 const initialPricesState = [
   {
     logo: price1,
-    price: 1250,
+    price: "1,250",
   },
   {
     logo: price2,
-    price: 2500,
+    price: "2,500",
   },
   {
     logo: price3,
-    price: 5000,
+    price: "5,000",
   },
   {
     logo: price4,
-    price: 125000,
+    price: "125,000",
   },
   {
     logo: price5,
-    price: 42500,
+    price: "42,500",
   },
   {
     logo: price6,
-    price: 100000,
+    price: "100,000",
   },
 ];
 
@@ -54,19 +61,22 @@ const initialCirclesState = [
   {
     id: 1,
     isPressed: false,
+    image: match1,
   },
   {
     id: 2,
     isPressed: false,
+    image: match6
   },
   {
     id: 3,
     isPressed: false,
+    image: match6
   },
 ];
 
 export const LuckyScratchPage = () => {
-  const [prices, setPrices] = useState(initialPricesState);
+  const prices = initialPricesState;
   const [totalMCFPaid, setTotalMCFPaid] = useState(0);
   const [scratchCardSold, setScratchCardSold] = useState(0);
   const [totalPlayers, setTotalPlayers] = useState(0);
@@ -76,7 +86,10 @@ export const LuckyScratchPage = () => {
   const [factorySold, setFactorySold] = useState("");
   const [cardsSold, setCardsSold] = useState("");
   const [players, setPlayers] = useState("");
-
+  const [approveToken, setApproveToken] = useState({
+    isApproved: false,
+    buttonText: "approve FACTORY"
+  });
   const [message, setMessage] = useState({
     showMessage: false,
     success: true,
@@ -84,6 +97,7 @@ export const LuckyScratchPage = () => {
   });
 
   const { showMessage, success, value } = message;
+  const { isApproved, buttonText } = approveToken;
 
   async function getUserBalance(userAddress) {
     let userTokenBalance = await mcfHandler.methods
@@ -125,7 +139,7 @@ export const LuckyScratchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessageButtonClick = () => {};
+  const handleMessageButtonClick = () => { };
 
   const handleCircleClick = (id) => {
     setCirclesState(
@@ -133,9 +147,10 @@ export const LuckyScratchPage = () => {
         circle.id === id ? { ...circle, isPressed: true } : circle
       )
     );
+
   };
 
-  const handleBuyClick = () => {};
+  const handleApproveTokenClick = () => { };
 
   return (
     <div
@@ -198,7 +213,7 @@ export const LuckyScratchPage = () => {
                     />
                   </div>
                   <div className="flex items-center gap-5">
-                    <label>{price}</label>
+                    <label className="font-bold">{price}</label>
                     <div
                       style={{
                         backgroundImage: `url(${mcfCoin})`,
@@ -239,15 +254,26 @@ export const LuckyScratchPage = () => {
                 className="mx-auto w-60 h-24"
               />
               <div className="flex flex-col md:flex-row items-center justify-center gap-20 w-full">
-                {circlesState.map(({ id, isPressed }) => (
+                {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${
-                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
-                    {isPressed ? "CORRECT" : ""}
+                    {
+                      isPressed && (
+                        <div
+                          style={{
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: "auto 100%",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center"
+                          }}
+                          className="h-8 w-20"
+                        />
+                      )
+                    }
                   </div>
                 ))}
               </div>
