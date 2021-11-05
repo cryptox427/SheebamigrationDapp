@@ -1,5 +1,6 @@
 import background from '../Images/background.png';
 import boxes from '../Images/boxes.png';
+import GameIMage from '../Images/lucky-scratch.jpeg';
 
 export const LuckyScratchPage = () => {
   return (
@@ -11,6 +12,24 @@ export const LuckyScratchPage = () => {
       }}
       className="w-full h-screen relative overflow-hidden"
     >
+
+      <div className="">
+        <div>
+
+        </div>
+        <div
+          style={{
+            backgroundImage: `url(${GameIMage})`,
+            backgroundSize: "auto 100%",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+          }}
+          className="h-72"
+        />
+        <div>
+
+        </div>
+      </div>
 
       <div className="flex justify-evenly w-screen absolute -bottom-5">
         <div
