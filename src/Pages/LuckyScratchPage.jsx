@@ -81,9 +81,6 @@ const initialCirclesState = [
 
 export const LuckyScratchPage = () => {
   const prices = initialPricesState;
-  const [totalMCFPaid, setTotalMCFPaid] = useState(0);
-  const [scratchCardSold, setScratchCardSold] = useState(0);
-  const [totalPlayers, setTotalPlayers] = useState(0);
   const [circlesState, setCirclesState] = useState(initialCirclesState);
   const [wallet, setWallet] = useState("");
   const [tokenBalance, setTokenBalance] = useState("");
@@ -93,7 +90,7 @@ export const LuckyScratchPage = () => {
   const [allowance, setAllowance] = useState("");
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
-    buttonText: "approve FACTORY",
+    buttonText: "Approve FACTORY",
   });
   const [message, setMessage] = useState({
     showMessage: false,
@@ -154,7 +151,7 @@ export const LuckyScratchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessageButtonClick = () => {};
+  const handleMessageButtonClick = () => { };
 
   const handleCircleClick = (id) => {
     setCirclesState(
@@ -162,9 +159,20 @@ export const LuckyScratchPage = () => {
         circle.id === id ? { ...circle, isPressed: true } : circle
       )
     );
+
+    // TODO CHANGE message const [message, setMessage] = useState({
+    //   showMessage: false,
+    //   success: true,
+    //   value: 0,
+    // });
   };
 
-  const handleApproveTokenClick = () => {};
+  const handleApproveTokenClick = () => {
+    // setApproveToken({
+    //   isApproved: true,
+    //   buttonText: "BUY"
+    // });
+  };
 
   return (
     <div
@@ -271,9 +279,8 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${
-                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -307,20 +314,20 @@ export const LuckyScratchPage = () => {
                 />
                 <h1>FACTORY paid</h1>
               </div>
-              <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow">
-                <p className="font-bold text-xl">{totalMCFPaid}</p>
+              <div className={`${factorySold === "" ? "py-5" : "py-1"} flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}>
+                <p className="font-bold text-xl">{factorySold}</p>
               </div>
               <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
                 Scratch Card Sold
               </h1>
-              <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow">
-                <p className="font-bold text-xl">{scratchCardSold}</p>
+              <div className={`${cardsSold === "" ? "py-5" : "py-1"} flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}>
+                <p className="font-bold text-xl">{cardsSold}</p>
               </div>
               <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
                 Total Players
               </h1>
-              <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow">
-                <p className="font-bold text-xl">{totalPlayers}</p>
+              <div className={`${players === "" ? "py-5" : "py-1"} flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}>
+                <p className="font-bold text-xl">{players}</p>
               </div>
               <div className="text-center text-sm mt-5">
                 <p>
@@ -352,6 +359,16 @@ export const LuckyScratchPage = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
+          {
+            allowance < 1 && (
+              <button
+                className="bg-orange py-2 px-3 rounded-xl font-bold text-yellow mb-2"
+                onClick={handleApproveTokenClick}
+              >
+                {buttonText}
+              </button>
+            )
+          }
           <button
             className="claimDividends"
             onClick={() => {
