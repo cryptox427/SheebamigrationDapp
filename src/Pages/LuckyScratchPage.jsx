@@ -26,6 +26,7 @@ const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 const scratchiesAddress = "";
+const BigNumber = require("bignumber.js");
 const ethereum = window.ethereum;
 if (ethereum) {
   ethereum.on("accountsChanged", function (accounts) {
@@ -122,8 +123,11 @@ export const LuckyScratchPage = () => {
     let spendingAmount = await mcfHandler.methods
       .allowance(permissionAddress, contractAddress)
       .call();
-    setAllowance(spendingAmount);
-    console.log(spendingAmount);
+    if (spendingAmount > 1) {
+      console.log("hi");
+    } else {
+      console.log("no");
+    }
   }
   function addWalletListener() {
     if (window.ethereum) {
@@ -143,6 +147,7 @@ export const LuckyScratchPage = () => {
       addWalletListener();
       if (wallet.length > 0) {
         getUserBalance(wallet);
+        pullAllowance(wallet, contractAddress);
       }
     }
     magic();
@@ -350,7 +355,7 @@ export const LuckyScratchPage = () => {
           <button
             className="claimDividends"
             onClick={() => {
-              getUserBalance(wallet);
+              pullAllowance(wallet, contractAddress);
               wallet.length <= 0
                 ? console.log("no")
                 : approveTokens(wallet, mcfHandler);
