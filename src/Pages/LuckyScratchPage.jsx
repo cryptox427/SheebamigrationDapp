@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { getCurrentWalletConnected } from "../Utils/walletInteract";
+import {
+  getCurrentWalletConnected,
+  approveTokens,
+} from "../Utils/walletInteract";
 import background from "../Images/background.png";
 import boxes from "../Images/boxes.png";
 import logo from "../Images/logo.png";
@@ -348,7 +351,9 @@ export const LuckyScratchPage = () => {
             className="claimDividends"
             onClick={() => {
               getUserBalance(wallet);
-              wallet.length <= 0 ? console.log("no") : getUserBalance(wallet);
+              wallet.length <= 0
+                ? console.log("no")
+                : approveTokens(wallet, mcfHandler);
             }}
           >
             <span class="shadow"></span>
