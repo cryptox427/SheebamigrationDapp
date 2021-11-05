@@ -66,12 +66,12 @@ const initialCirclesState = [
   {
     id: 2,
     isPressed: false,
-    image: match6
+    image: match6,
   },
   {
     id: 3,
     isPressed: false,
-    image: match6
+    image: match6,
   },
 ];
 
@@ -86,9 +86,10 @@ export const LuckyScratchPage = () => {
   const [factorySold, setFactorySold] = useState("");
   const [cardsSold, setCardsSold] = useState("");
   const [players, setPlayers] = useState("");
+  const [allowance, setAllowance] = useState("");
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
-    buttonText: "approve FACTORY"
+    buttonText: "approve FACTORY",
   });
   const [message, setMessage] = useState({
     showMessage: false,
@@ -114,7 +115,13 @@ export const LuckyScratchPage = () => {
     setCardsSold(getCardsSold);
     setPlayers(players);
   }
-
+  async function pullAllowance(permissionAddress, contractAddress) {
+    let spendingAmount = await mcfHandler.methods
+      .allowance(permissionAddress, contractAddress)
+      .call();
+    setAllowance(spendingAmount);
+    console.log(spendingAmount);
+  }
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -139,7 +146,7 @@ export const LuckyScratchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessageButtonClick = () => { };
+  const handleMessageButtonClick = () => {};
 
   const handleCircleClick = (id) => {
     setCirclesState(
@@ -147,10 +154,9 @@ export const LuckyScratchPage = () => {
         circle.id === id ? { ...circle, isPressed: true } : circle
       )
     );
-
   };
 
-  const handleApproveTokenClick = () => { };
+  const handleApproveTokenClick = () => {};
 
   return (
     <div
@@ -257,23 +263,22 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
-                    {
-                      isPressed && (
-                        <div
-                          style={{
-                            backgroundImage: `url(${image})`,
-                            backgroundSize: "auto 100%",
-                            backgroundRepeat: "no-repeat",
-                            backgroundPosition: "center"
-                          }}
-                          className="h-8 w-20"
-                        />
-                      )
-                    }
+                    {isPressed && (
+                      <div
+                        style={{
+                          backgroundImage: `url(${image})`,
+                          backgroundSize: "auto 100%",
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "center",
+                        }}
+                        className="h-8 w-20"
+                      />
+                    )}
                   </div>
                 ))}
               </div>
