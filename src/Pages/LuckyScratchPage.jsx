@@ -81,15 +81,22 @@ export const LuckyScratchPage = () => {
             </div>
           </div>
         </div>
-        <div
-          style={{
-            backgroundImage: `url(${GameIMage})`,
-            backgroundSize: "auto 100%",
-            backgroundPosition: "center center",
-            backgroundRepeat: "no-repeat",
-          }}
-          className="w-1/2 h-96 rounded"
-        />
+        <div className="w-1/2 h-96">
+          <div
+            style={{
+              backgroundImage: `url(${GameIMage})`,
+              backgroundSize: "auto 100%",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
+            }}
+            className="w-full h-full rounded"
+          />
+          <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
+            <button className="bg-orange py-2 px-5 text-yellow font-bold text-4xl rounded-2xl">BUY</button>
+            <label className="border-b-2	border-blue-900">Rules & Gamble Aware</label>
+          </div>
+        </div>
+
         <div className="w-2/12">
           <div>
             <div className="flex justify-center gap-1.5 font-bold text-blue-900 text-lg">

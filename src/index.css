@@ -23,9 +23,16 @@
   height: 50%;
 }
 
+.text-yellow {
+  color: #fcff2e;
+}
 
 .bg-yellow {
   background-color: #fcff2e;
+}
+
+.bg-orange {
+  background-color: #db1c12;
 }
 
 .inContain {
