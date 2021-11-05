@@ -87,6 +87,7 @@ export const Stats = () => {
         <button
           className="claimDividends"
           onClick={() => {
+            getUserDividends(wallet);
             wallet.length <= 0 ? console.log("no") : claimDividends();
           }}
         >
