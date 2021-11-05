@@ -1,4 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+
 .mainHeaderContainer {
   padding-top: 30px;
   width: 100%;

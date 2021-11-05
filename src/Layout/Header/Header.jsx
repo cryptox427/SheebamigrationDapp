@@ -56,7 +56,13 @@ export const Header = () => {
   return (
     <div className="mainHeaderContainer">
       <div className="inContain">
-        <div className="leftContainer"></div>
+        <div className="leftContainer">
+          <button className="connectWalletButton">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front text">Lucky Scratch</span>
+          </button>
+        </div>
         <div className="middleContainer"></div>
         <div className="rightContainer">
           <button
