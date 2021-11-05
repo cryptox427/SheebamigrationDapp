@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../Images/logo.png";
 
 import {
   connectWallet,
@@ -56,7 +57,7 @@ export const Header = () => {
   }, []);
   return (
     <div className="mainHeaderContainer">
-      <div className="inContain">
+      <div className="flex flex-col gap-10 p-5 inContain sm:flex-row sm:gap-0 sm:py-0">
         <div className="leftContainer">
           <Link
             to="/lucky-scratch"
@@ -69,7 +70,16 @@ export const Header = () => {
             </button>
           </Link>
         </div>
-        <div className="middleContainer"></div>
+        <div className="middleContainer">
+          <div
+            style={{
+              backgroundImage: `url(${logo})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+            }}
+            className="h-20 w-56"
+          />
+        </div>
         <div className="rightContainer">
           <button
             className="connectWalletButton"

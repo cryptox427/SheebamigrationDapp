@@ -23,12 +23,20 @@
   height: 50%;
 }
 
+.font-ds-digital {
+  font-family: "DS-Digital", sans-serif;
+}
+
 .text-shadow {
   text-shadow: 2px 0 0 #db1c12, -2px 0 0 #db1c12, 0 2px 0 #db1c12, 0 -2px 0 #db1c12, 1px 1px #db1c12, -1px -1px 0 #db1c12, 1px -1px 0 #db1c12, -1px 1px 0 #db1c12;
 }
 
 .text-yellow {
   color: #fcff2e;
+}
+
+.text-green {
+  color: #39ff14;
 }
 
 .bg-yellow {
@@ -44,8 +52,6 @@
 }
 
 .inContain {
-  display: flex;
-  flex-flow: row;
   justify-content: space-between;
   align-items: center;
   border-style: solid;
@@ -56,14 +62,6 @@
   border-left-width: 0px;
   border-right-width: 0px;
   background-color: #fcff2e;
-  padding: 15px;
-}
-.BoxContainers {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-
-  height: 100%;
 }
 
 .connectWalletButton {
@@ -222,7 +220,6 @@ button:focus:not(:focus-visible) {
   padding: 30px;
   background: linear-gradient(45deg, #555555 33%, #636363 66%, #808080 99%);
   box-shadow: 20px -20px 60px #bebebe, -20px 20px 60px #ffffff;
-  width: 28%;
 }
 
 .textAboveDivs {

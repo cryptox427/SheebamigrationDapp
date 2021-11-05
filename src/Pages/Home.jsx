@@ -64,14 +64,14 @@ export const Stats = () => {
 
   console.log(wallet);
   return (
-    <div className="BoxContainers">
+    <div className="flex flex-col items-center mb-10 mx-auto w-11/12">
       <img src={upperCables} alt="" />
-      <div className="totalDivs">
+      <div className="totalDivs w-full md:w-10/12 lg:w-1/2">
         <h1>Total BUSD reflected to holders #128151</h1>
-        <span className="NumberColor">{dividend / 10 ** 18} BUSD</span>
+        <span className="NumberColor">{(dividend / 10 ** 18).toFixed(5)} BUSD</span>
       </div>
       <img src={midCable} alt="" />
-      <div className="divsBoxContainer">
+      <div className="divsBoxContainer rounded w-3/4 md:w-1/2 lg:w-1/4">
         <span className="textAboveDivs"> Your BUSD rewards</span>
         <div className="claimableDividends">
           {wallet.length > 0 ? (
