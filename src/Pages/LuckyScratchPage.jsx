@@ -3,6 +3,7 @@ import {
   getCurrentWalletConnected,
   approveTokens,
 } from "../Utils/walletInteract";
+/* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
 import boxes from "../Images/boxes.png";
 import logo from "../Images/logo.png";
@@ -155,7 +156,7 @@ export const LuckyScratchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessageButtonClick = () => { };
+  const handleMessageButtonClick = () => {};
 
   const handleCircleClick = (id) => {
     setCirclesState(
@@ -283,8 +284,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -318,19 +320,31 @@ export const LuckyScratchPage = () => {
                 />
                 <h1>FACTORY paid</h1>
               </div>
-              <div className={`${factorySold === "" ? "py-5" : "py-1"} flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}>
+              <div
+                className={`${
+                  factorySold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+              >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
               <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
                 Scratch Card Sold
               </h1>
-              <div className={`${cardsSold === "" ? "py-5" : "py-1"} flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}>
+              <div
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+              >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
               <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
                 Total Players
               </h1>
-              <div className={`${players === "" ? "py-5" : "py-1"} flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}>
+              <div
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+              >
                 <p className="font-bold text-xl">{players}</p>
               </div>
               <div className="text-center text-sm mt-5">
@@ -363,16 +377,14 @@ export const LuckyScratchPage = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
-          {
-            allowance < 1 && (
-              <button
-                className="bg-orange py-2 px-3 rounded-xl font-bold text-yellow mb-2"
-                onClick={handleApproveTokenClick}
-              >
-                {buttonText}
-              </button>
-            )
-          }
+          {allowance < 1 && (
+            <button
+              className="bg-orange py-2 px-3 rounded-xl font-bold text-yellow mb-2"
+              onClick={handleApproveTokenClick}
+            >
+              {buttonText}
+            </button>
+          )}
           <button
             className="claimDividends"
             onClick={() => {
