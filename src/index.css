@@ -23,6 +23,11 @@
   height: 50%;
 }
 
+
+.bg-yellow {
+  background-color: #fcff2e;
+}
+
 .inContain {
   display: flex;
   flex-flow: row;
