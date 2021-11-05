@@ -90,7 +90,33 @@ export const LuckyScratchPage = () => {
           }}
           className="w-1/2 h-96 rounded"
         />
-        <div>
+        <div className="w-2/12">
+          <div>
+            <div className="flex justify-center gap-1.5 font-bold text-blue-900 text-lg">
+              <h1>TOTAL</h1>
+              <div
+                style={{
+                  backgroundImage: `url(${background})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center center"
+                }}
+                className="h-5 w-5"
+              />
+              <h1>FACTORY paid</h1>
+            </div>
+            <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl p-5 bg-yellow" />
+            <h1 className="font-bold text-blue-900 text-lg text-center mt-5">Scratch Card Sold</h1>
+            <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl p-5 bg-yellow" />
+            <h1 className="font-bold text-blue-900 text-lg text-center mt-5">Total Players</h1>
+            <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl p-5 bg-yellow" />
+            <div className="text-center text-sm mt-5">
+              <p>
+                Do not send funds to the contract address
+                as they will be lost
+                This is Defi, play at your own risk.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
