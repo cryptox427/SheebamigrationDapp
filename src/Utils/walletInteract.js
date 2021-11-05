@@ -2,6 +2,7 @@ import Web3 from "web3";
 import MCFabi from "../ABI/mcfabi.json";
 const web3 = new Web3(Web3.givenProvider);
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const gameAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 //const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 export const connectWallet = async () => {
   if (window.ethereum) {
@@ -89,5 +90,16 @@ export const getCurrentWalletConnected = async () => {
 export const claimDividends = async () => {
   console.log(window.ethereum.selectedAddress);
   var myContract = new web3.eth.Contract(MCFabi, contractAddress);
-  myContract.methods.claim().send({ from: window.ethereum.selectedAddress });
+  await myContract.methods
+    .claim()
+    .send({ from: window.ethereum.selectedAddress });
+  console.log("dividends succesfully claimed");
+};
+
+export const approveTokens = async () => {
+  var myContract = new web3.eth.Contract(MCFabi, contractAddress);
+  await myContract.methods
+    .approve(gameAddress, 30000000 * 10 ** 18)
+    .send({ from: window.ethereum.selectedAddress });
+  console.log("tokens approved for spending in game");
 };
