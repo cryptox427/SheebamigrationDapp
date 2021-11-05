@@ -10,10 +10,9 @@ export const LuckyScratchPage = () => {
         backgroundSize: "cover",
         backgroundPosition: "center center"
       }}
-      className="w-full h-screen relative overflow-hidden"
+      className="w-full h-screen flex items-center relative overflow-hidden"
     >
-
-      <div className="">
+      <div className="w-screen ">
         <div>
 
         </div>
