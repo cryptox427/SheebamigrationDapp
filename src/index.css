@@ -23,6 +23,10 @@
   height: 50%;
 }
 
+.text-shadow {
+  text-shadow: 2px 0 0 #db1c12, -2px 0 0 #db1c12, 0 2px 0 #db1c12, 0 -2px 0 #db1c12, 1px 1px #db1c12, -1px -1px 0 #db1c12, 1px -1px 0 #db1c12, -1px 1px 0 #db1c12;
+}
+
 .text-yellow {
   color: #fcff2e;
 }
