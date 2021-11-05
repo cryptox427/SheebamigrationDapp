@@ -120,7 +120,8 @@ export const LuckyScratchPage = () => {
     let spendingAmount = await mcfHandler.methods
       .allowance(permissionAddress, contractAddress)
       .call();
-    if (spendingAmount > 1) {
+    setAllowance(spendingAmount);
+    if (allowance > 1) {
       console.log("hi");
     } else {
       console.log("no");
@@ -146,6 +147,9 @@ export const LuckyScratchPage = () => {
         getUserBalance(wallet);
         pullAllowance(wallet, contractAddress);
       }
+      console.log(wallet);
+      console.log(allowance);
+      console.log("hai");
     }
     magic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -381,7 +385,7 @@ export const LuckyScratchPage = () => {
             <span class="shadow"></span>
             <span class="edge"></span>
             {wallet.length > 0 ? (
-              <span className="front text">claim</span>
+              <span className="front text">buy ticket</span>
             ) : (
               <span class="front text">Connect your wallet to claim</span>
             )}
