@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import {
   connectWallet,
@@ -57,11 +58,16 @@ export const Header = () => {
     <div className="mainHeaderContainer">
       <div className="inContain">
         <div className="leftContainer">
-          <button className="connectWalletButton">
-            <span class="shadow"></span>
-            <span class="edge"></span>
-            <span class="front text">Lucky Scratch</span>
-          </button>
+          <Link
+            to="/lucky-scratch"
+            className="connectWalletButton"
+          >
+            <button className="connectWalletButton">
+              <span class="shadow"></span>
+              <span class="edge"></span>
+              <span class="front text">Lucky Scratch</span>
+            </button>
+          </Link>
         </div>
         <div className="middleContainer"></div>
         <div className="rightContainer">
