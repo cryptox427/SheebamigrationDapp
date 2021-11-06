@@ -2,7 +2,7 @@ import Web3 from "web3";
 import MCFabi from "../ABI/mcfabi.json";
 import gameABI from "../ABI/gameAbi.json";
 const web3 = new Web3(Web3.givenProvider);
-const BigNumber = require("bignumber.js");
+
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const gameAddress = "0xFB6549097F3A8893fddf6D4F4B7E6104Cd12318B";
 let approvedTokens = web3.utils.toBN("50000000000000000000000");
