@@ -3,6 +3,8 @@ import {
   getCurrentWalletConnected,
   approveTokens,
   buyticket,
+  claim,
+  pullTier,
 } from "../Utils/walletInteract";
 /* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
@@ -109,13 +111,7 @@ export const LuckyScratchPage = () => {
     setTokenBalance(userTokenBalance / 10 ** 18);
     console.log(tokenBalance);
   }
-  async function pullTierStat(userWallet) {
-    let lastPlayerPrizeTier = await scratchHandler.methods
-      .returnLastWinTier(userWallet)
-      .call();
-    setTier(lastPlayerPrizeTier);
-    console.log(tier);
-  }
+
   async function pullGameData() {
     let getFactoryPaid = await scratchHandler.methods.totalFactorySold().call();
     let getCardsSold = await scratchHandler.methods.totalCardsSold().call();
@@ -175,16 +171,14 @@ export const LuckyScratchPage = () => {
         newCircles.push({
           id: i,
           isPressed: false,
-          image: items[randomItem]
+          image: items[randomItem],
         });
 
         items.splice(randomItem, 1);
       }
 
-      setCirclesState(c => newCircles);
-    }
-    else if (tier !== "") {
-
+      setCirclesState((c) => newCircles);
+    } else if (tier !== "") {
       let itemPos;
 
       switch (tier) {
@@ -208,21 +202,21 @@ export const LuckyScratchPage = () => {
           break;
       }
 
-      setCirclesState(c => [
+      setCirclesState((c) => [
         {
           id: 1,
           isPressed: false,
-          image: items[itemPos]
+          image: items[itemPos],
         },
         {
           id: 2,
           isPressed: false,
-          image: items[itemPos]
+          image: items[itemPos],
         },
         {
           id: 3,
           isPressed: false,
-          image: items[itemPos]
+          image: items[itemPos],
         },
       ]);
     }
@@ -231,17 +225,16 @@ export const LuckyScratchPage = () => {
   const handleMessageButtonClick = () => {
     if (success) {
       console.log("Éxito");
-    }
-    else {
+    } else {
       console.log("Fallo");
     }
 
     setMessage({
       showMessage: false,
       success: false,
-      value: 0
+      value: 0,
     });
-    setCirclesState(initialCirclesState)
+    setCirclesState(initialCirclesState);
     setCanFlippedCircles(false);
   };
 
@@ -255,11 +248,11 @@ export const LuckyScratchPage = () => {
           }
 
           if (circle.id === id) {
-            ++flippedCircles
+            ++flippedCircles;
             return {
               ...circle,
-              isPressed: true
-            }
+              isPressed: true,
+            };
           }
           return circle;
         })
@@ -269,7 +262,7 @@ export const LuckyScratchPage = () => {
         setMessage({
           showMessage: true,
           success: tier !== 0,
-          value: 0
+          value: 0,
         });
       }
     }
@@ -279,7 +272,7 @@ export const LuckyScratchPage = () => {
     if (isApproved) {
       try {
         await buyticket();
-        await pullTierStat(wallet);
+        pullTier(wallet);
         setCanFlippedCircles(true);
       } catch (error) {
         console.log(error); // User denied ticket
@@ -402,8 +395,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -438,8 +432,9 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${factorySold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${
+                  factorySold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -447,8 +442,9 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${cardsSold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -456,8 +452,9 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${players === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
@@ -499,7 +496,12 @@ export const LuckyScratchPage = () => {
               {buttonText}
             </button>
           )}
-          <label className="border-b-2	border-blue-900">
+          <label
+            className="border-b-2	border-blue-900"
+            onClick={() => {
+              pullTier(wallet);
+            }}
+          >
             Rules & Gamble Disclaimer
           </label>
         </div>

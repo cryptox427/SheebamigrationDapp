@@ -116,3 +116,17 @@ export const buyticket = async () => {
     .send({ from: window.ethereum.selectedAddress });
   console.log("ticket successufully bought");
 };
+
+export const claim = async () => {
+  var myContract = new web3.eth.Contract(gameABI, gameAddress);
+  await myContract.methods
+    .claimPrize()
+    .send({ from: window.ethereum.selectedAddress });
+  console.log("price successfully claimed");
+};
+
+export const pullTier = async (userWallet) => {
+  var myContract = new web3.eth.Contract(gameABI, gameAddress);
+  let hello = await myContract.methods.returnLastWinTier(userWallet).call();
+  console.log(hello);
+};
