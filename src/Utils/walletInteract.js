@@ -1,5 +1,6 @@
 import Web3 from "web3";
 import MCFabi from "../ABI/mcfabi.json";
+import gameABI from "../ABI/gameAbi.json";
 const web3 = new Web3(Web3.givenProvider);
 const BigNumber = require("bignumber.js");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
@@ -106,4 +107,12 @@ export const approveTokens = async () => {
     .approve(gameAddress, approvedTokens)
     .send({ from: window.ethereum.selectedAddress });
   console.log("tokens approved for spending in game");
+};
+
+export const buyticket = async () => {
+  var myContract = new web3.eth.Contract(gameABI, gameAddress);
+  await myContract.methods
+    .BuyTicket()
+    .send({ from: window.ethereum.selectedAddress });
+  console.log("ticket successufully bought");
 };

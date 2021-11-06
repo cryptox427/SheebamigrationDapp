@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
   getCurrentWalletConnected,
   approveTokens,
+  buyticket,
 } from "../Utils/walletInteract";
 /* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
@@ -393,9 +394,7 @@ export const LuckyScratchPage = () => {
             className="claimDividends"
             onClick={() => {
               pullAllowance(wallet, contractAddress);
-              wallet.length <= 0
-                ? console.log("no")
-                : approveTokens(wallet, mcfHandler);
+              wallet.length <= 0 ? console.log("no") : buyticket(); //approveTokens(wallet, mcfHandler);
             }}
           >
             <span class="shadow"></span>
