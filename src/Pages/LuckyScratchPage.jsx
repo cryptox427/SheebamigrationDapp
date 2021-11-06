@@ -92,6 +92,7 @@ export const LuckyScratchPage = () => {
   const [players, setPlayers] = useState("");
   const [allowance, setAllowance] = useState("");
   const [tier, setTier] = useState("");
+  const [wonPriceValue, setWonPriceValue] = useState(1000);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
     buttonText: "Approve FACTORY",
@@ -99,10 +100,9 @@ export const LuckyScratchPage = () => {
   const [message, setMessage] = useState({
     showMessage: false,
     success: true,
-    value: 0,
   });
 
-  const { showMessage, success, value } = message;
+  const { showMessage, success } = message;
   const { isApproved, buttonText } = approveToken;
 
   async function getUserBalance(userAddress) {
@@ -157,66 +157,77 @@ export const LuckyScratchPage = () => {
   useEffect(() => {
     const items = [price1, price2, price3, price4, price5, price6];
 
-    if (Number(tier) === 0) {
-      const newCircles = [];
+    if (tier !== "") {
+      if (Number(tier) === 0) {
+        const newCircles = [];
 
-      for (let i = 1; i <= 3; ++i) {
-        const randomItem = Math.floor(Math.random() * items.length);
+        for (let i = 1; i <= 3; ++i) {
+          const randomItem = Math.floor(Math.random() * items.length);
 
-        newCircles.push({
-          id: i,
-          isPressed: false,
-          image: items[randomItem],
-        });
+          newCircles.push({
+            id: i,
+            isPressed: false,
+            image: items[randomItem],
+          });
 
-        items.splice(randomItem, 1);
+          items.splice(randomItem, 1);
+        }
+
+        setCirclesState((c) => newCircles);
+        setCanFlippedCircles(true);
+        setWonPriceValue(1000);
+      } else if (tier !== "") {
+        let itemPos;
+        let wonValue = 0;
+
+        // eslint-disable-next-line default-case
+        switch (Number(tier)) {
+          case 1:
+            itemPos = 0;
+            wonValue = 1250;
+            break;
+          case 2:
+            itemPos = 1;
+            wonValue = 2500;
+            break;
+          case 3:
+            itemPos = 2;
+            wonValue = 5000;
+            break;
+          case 4:
+            itemPos = 3;
+            wonValue = 12500;
+            break;
+          case 5:
+            itemPos = 4;
+            wonValue = 42500;
+            break;
+          case 9:
+            itemPos = 5;
+            wonValue = 100000;
+            break;
+        }
+
+        setWonPriceValue(wonValue);
+        setCirclesState((c) => [
+          {
+            id: 1,
+            isPressed: false,
+            image: items[itemPos],
+          },
+          {
+            id: 2,
+            isPressed: false,
+            image: items[itemPos],
+          },
+          {
+            id: 3,
+            isPressed: false,
+            image: items[itemPos],
+          },
+        ]);
+        setCanFlippedCircles(true);
       }
-
-      setCirclesState((c) => newCircles);
-      setCanFlippedCircles(true);
-    } else if (tier !== "") {
-      let itemPos;
-
-      // eslint-disable-next-line default-case
-      switch (Number(tier)) {
-        case 1:
-          itemPos = 0;
-          break;
-        case 2:
-          itemPos = 1;
-          break;
-        case 3:
-          itemPos = 2;
-          break;
-        case 4:
-          itemPos = 3;
-          break;
-        case 5:
-          itemPos = 4;
-          break;
-        case 9:
-          itemPos = 5;
-          break;
-      }
-
-      setCirclesState((c) => [
-        {
-          id: 1,
-          isPressed: false,
-          image: items[itemPos],
-        },
-        {
-          id: 2,
-          isPressed: false,
-          image: items[itemPos],
-        },
-        {
-          id: 3,
-          isPressed: false,
-          image: items[itemPos],
-        },
-      ]);
-      setCanFlippedCircles(true);
     }
   }, [tier]);
 
@@ -234,8 +245,9 @@ export const LuckyScratchPage = () => {
     setMessage({
       showMessage: false,
       success: false,
-      value: 0,
     });
+
+    setWonPriceValue(1000);
     setCirclesState(initialCirclesState);
     setCanFlippedCircles(false);
     setTier("");
@@ -265,7 +277,6 @@ export const LuckyScratchPage = () => {
         setMessage({
           showMessage: true,
           success: Number(tier) !== 0,
-          value: 0,
         });
       }
     }
@@ -313,7 +324,7 @@ export const LuckyScratchPage = () => {
             {success ? "Congratulations" : "Try again"}
           </h1>
           <p className="uppercase text-yellow font-bold text-2xl">
-            You {success ? "won" : "lost"} {value} factory
+            You {success ? "won" : "lost"} {wonPriceValue} factory
           </p>
           <button
             className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
@@ -403,9 +414,8 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${
-                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -440,9 +450,8 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${
-                  factorySold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${factorySold === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -450,9 +459,8 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${
-                  cardsSold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${cardsSold === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -460,9 +468,8 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${
-                  players === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${players === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
