@@ -77,7 +77,7 @@ export const Stats = () => {
           {wallet.length > 0 ? (
             <span className="NumberColor">$ {userDividends}</span>
           ) : (
-            <span class="">Connect your wallet</span>
+            <span className="">Connect your wallet</span>
           )}
         </div>
       </div>
@@ -91,12 +91,12 @@ export const Stats = () => {
             wallet.length <= 0 ? console.log("no") : claimDividends();
           }}
         >
-          <span class="shadow"></span>
-          <span class="edge"></span>
+          <span className="shadow"></span>
+          <span className="edge"></span>
           {wallet.length > 0 ? (
             <span className="front text">claim</span>
           ) : (
-            <span class="front text">Connect your wallet to claim</span>
+            <span className="front text">Connect your wallet to claim</span>
           )}
         </button>
       </div>

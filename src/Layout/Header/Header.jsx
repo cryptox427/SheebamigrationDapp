@@ -64,9 +64,9 @@ export const Header = () => {
             className="connectWalletButton"
           >
             <button className="connectWalletButton">
-              <span class="shadow"></span>
-              <span class="edge"></span>
-              <span class="front text">Lucky Scratch</span>
+              <span className="shadow"></span>
+              <span className="edge"></span>
+              <span className="front text">Lucky Scratch</span>
             </button>
           </Link>
         </div>
@@ -85,8 +85,8 @@ export const Header = () => {
             className="connectWalletButton"
             onClick={connectWalletPressed}
           >
-            <span class="shadow"></span>
-            <span class="edge"></span>
+            <span className="shadow"></span>
+            <span className="edge"></span>
             {walletAddress.length > 0 ? (
               <span className="front text">
                 {"Connected: " +
@@ -95,7 +95,7 @@ export const Header = () => {
                   String(walletAddress).substring(38)}
               </span>
             ) : (
-              <span class="front text">Connect your wallet</span>
+              <span className="front text">Connect your wallet</span>
             )}
           </button>
         </div>
