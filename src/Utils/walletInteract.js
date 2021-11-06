@@ -3,7 +3,7 @@ import MCFabi from "../ABI/mcfabi.json";
 const web3 = new Web3(Web3.givenProvider);
 const BigNumber = require("bignumber.js");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
-const gameAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const gameAddress = "0x2e92c50066E3AC5c2f7B930f144B42e992033cd3";
 let approvedTokens = new BigNumber("50000000000000000000000000");
 
 //const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);

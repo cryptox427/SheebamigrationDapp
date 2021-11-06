@@ -22,11 +22,14 @@ import match5 from "../Images/match3text.png";
 import match6 from "../Images/title.png";
 
 import MCFabi from "../ABI/mcfabi.json";
+import gameABI from "../ABI/gameAbi.json";
 import Web3 from "web3";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const gameAddress = "0x2e92c50066E3AC5c2f7B930f144B42e992033cd3";
 const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
-const scratchiesAddress = "";
+const scratchHandler = new web3.eth.Contract(gameABI, gameAddress);
+
 const BigNumber = require("bignumber.js");
 const ethereum = window.ethereum;
 if (ethereum) {
@@ -110,9 +113,9 @@ export const LuckyScratchPage = () => {
     console.log(tokenBalance);
   }
   async function pullGameData() {
-    let getFactoryPaid = await scratchiesAddress.methods;
-    let getCardsSold = await scratchiesAddress.methods;
-    let players = await scratchiesAddress.methods;
+    let getFactoryPaid = await scratchHandler.methods.totalFactorySold().call();
+    let getCardsSold = await scratchHandler.methods.totalCardsSold().call();
+    let players = await scratchHandler.methods.totalCardsSold().call();
     setFactorySold(getFactoryPaid);
     setCardsSold(getCardsSold);
     setPlayers(players);
@@ -144,6 +147,7 @@ export const LuckyScratchPage = () => {
       const { address } = await getCurrentWalletConnected();
       setWallet(address);
       addWalletListener();
+      pullGameData();
       if (wallet.length > 0) {
         getUserBalance(wallet);
         pullAllowance(wallet, contractAddress);
