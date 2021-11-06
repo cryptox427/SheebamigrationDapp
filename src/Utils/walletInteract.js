@@ -128,8 +128,16 @@ export const claim = async () => {
 export const pullTier = async (userWallet) => {
   var myContract = new web3.eth.Contract(gameABI, gameAddress);
   let hello = await myContract.methods.returnLastWinTier(userWallet).call();
-  
+
   console.log(hello);
 
   return hello;
+};
+
+export const pullAllowance = async (permissionWallet, scratchAddress) => {
+  var myContract = new web3.eth.Contract(MCFabi, contractAddress);
+  let allowance = await myContract.methods
+    .allowance(permissionWallet, scratchAddress)
+    .call();
+  return allowance;
 };
