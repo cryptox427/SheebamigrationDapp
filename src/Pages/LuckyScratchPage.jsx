@@ -161,7 +161,9 @@ export const LuckyScratchPage = () => {
 
   useEffect(() => {
     const items = [price1, price2, price3, price4, price5, price6];
-    if (tier === 0) {
+
+    console.log("LLama el efecto", { tier });
+    if (tier === Number(0)) {
       const newCircles = [];
 
       for (let i = 1; i <= 3; ++i) {
@@ -181,22 +183,22 @@ export const LuckyScratchPage = () => {
       let itemPos;
 
       switch (tier) {
-        case 1:
+        case Number(1):
           itemPos = 0;
           break;
-        case 2:
+        case Number(2):
           itemPos = 1;
           break;
-        case 3:
+        case Number(3):
           itemPos = 2;
           break;
-        case 4:
+        case Number(4):
           itemPos = 3;
           break;
-        case 5:
+        case Number(5):
           itemPos = 4;
           break;
-        case 9:
+        case Number(9):
           itemPos = 5;
           break;
       }
@@ -218,14 +220,19 @@ export const LuckyScratchPage = () => {
           image: items[itemPos],
         },
       ]);
+      setCanFlippedCircles(true);
     }
   }, [tier]);
 
-  const handleMessageButtonClick = () => {
+  const handleMessageButtonClick = async () => {
     if (success) {
-      console.log("Éxito");
+      try {
+        await claim();
+      } catch (error) {
+        console.log(error);
+      }
     } else {
-      console.log("Fallo");
+      console.log("Fail");
     }
 
     setMessage({
@@ -235,6 +242,7 @@ export const LuckyScratchPage = () => {
     });
     setCirclesState(initialCirclesState);
     setCanFlippedCircles(false);
+    setTier("");
   };
 
   const handleCircleClick = (id) => {
@@ -271,8 +279,8 @@ export const LuckyScratchPage = () => {
     if (isApproved) {
       try {
         await buyticket();
-        pullTier(wallet);
-        setCanFlippedCircles(true);
+        const tier = await pullTier(wallet);
+        setTier(tier);
       } catch (error) {
         console.log(error); // User denied ticket
       }
@@ -394,9 +402,8 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${
-                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -431,9 +438,8 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${
-                  factorySold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${factorySold === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -441,9 +447,8 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${
-                  cardsSold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${cardsSold === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -451,9 +456,8 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${
-                  players === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${players === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
@@ -489,7 +493,7 @@ export const LuckyScratchPage = () => {
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
           {allowance < 1 && (
             <button
-              className="bg-orange py-2 px-3 rounded-xl font-bold text-yellow mb-2"
+              className="bg-orange py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40"
               onClick={handleApproveTokenClick}
             >
               {buttonText}
