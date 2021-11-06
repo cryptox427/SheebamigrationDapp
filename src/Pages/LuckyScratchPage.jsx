@@ -15,12 +15,6 @@ import price4 from "../Images/prize 4.png";
 import price5 from "../Images/prize 5.png";
 import price6 from "../Images/prize 6.png";
 import mcfCoin from "../Images/mcf coin.png";
-import match1 from "../Images/arm1.png";
-import match2 from "../Images/arm2.png";
-import match3 from "../Images/cardbg.png";
-import match4 from "../Images/coin.png";
-import match5 from "../Images/match3text.png";
-import match6 from "../Images/title.png";
 
 import MCFabi from "../ABI/mcfabi.json";
 import gameABI from "../ABI/gameAbi.json";
@@ -70,17 +64,17 @@ const initialCirclesState = [
   {
     id: 1,
     isPressed: false,
-    image: match1,
+    image: price1,
   },
   {
     id: 2,
     isPressed: false,
-    image: match6,
+    image: price1,
   },
   {
     id: 3,
     isPressed: false,
-    image: match6,
+    image: price1,
   },
 ];
 
@@ -169,7 +163,71 @@ export const LuckyScratchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessageButtonClick = () => {};
+  useEffect(() => {
+    const items = [price1, price2, price3, price4, price5, price6];
+    if (tier === 0) {
+      const newCircles = [];
+
+      for (let i = 1; i <= 3; ++i) {
+        const randomItem = Math.floor(Math.random() * items.length);
+
+        newCircles.push({
+          id: i,
+          isPressed: false,
+          image: items[randomItem]
+        });
+
+        items.slice(randomItem, 1);
+      }
+
+      setCirclesState(c => newCircles);
+    }
+    else if (tier !== "") {
+
+      let itemPos;
+
+      switch (tier) {
+        case 1:
+          itemPos = 0;
+          break;
+        case 2:
+          itemPos = 1;
+          break;
+        case 3:
+          itemPos = 2;
+          break;
+        case 4:
+          itemPos = 3;
+          break;
+        case 5:
+          itemPos = 4;
+          break;
+        case 9:
+          itemPos = 5;
+          break;
+      }
+
+      setCirclesState(c => [
+        {
+          id: 1,
+          isPressed: false,
+          image: items[itemPos]
+        },
+        {
+          id: 2,
+          isPressed: false,
+          image: items[itemPos]
+        },
+        {
+          id: 3,
+          isPressed: false,
+          image: items[itemPos]
+        },
+      ]);
+    }
+  }, [tier]);
+
+  const handleMessageButtonClick = () => { };
 
   const handleCircleClick = (id) => {
     setCirclesState(
@@ -189,6 +247,7 @@ export const LuckyScratchPage = () => {
     if (isApproved) {
       try {
         await buyticket();
+        await pullTierStat(wallet);
       } catch (error) {
         console.log(error); // User denied ticket
       }
@@ -204,6 +263,8 @@ export const LuckyScratchPage = () => {
       }
     }
   };
+
+  console.log("Yooo", circlesState);
 
   return (
     <div
@@ -310,9 +371,8 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${
-                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -347,9 +407,8 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${
-                  factorySold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${factorySold === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -357,9 +416,8 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${
-                  cardsSold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${cardsSold === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -367,9 +425,8 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${
-                  players === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${players === "" ? "py-5" : "py-1"
+                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
