@@ -22,7 +22,7 @@ import mcfCoin from "../Images/mcf coin.png";
 import MCFabi from "../ABI/mcfabi.json";
 import gameABI from "../ABI/gameAbi.json";
 import Web3 from "web3";
-import { Spinner } from "../components/Spinner/Spinner";
+import { Spinner } from "../Components/Spinner/Spinner";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const gameAddress = "0xFB6549097F3A8893fddf6D4F4B7E6104Cd12318B";
@@ -420,8 +420,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -456,8 +457,9 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${factorySold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${
+                  factorySold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -465,8 +467,9 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${cardsSold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -474,8 +477,9 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${players === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
@@ -509,14 +513,14 @@ export const LuckyScratchPage = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
-          {
-            isLoading && (
-              <Spinner />
-            )
-          }
+          {isLoading && <Spinner />}
           {allowance < 1 && (
             <button
-              className={`${isLoading ? "bg-gray-700 cursor-default" : "bg-orange cursor-pointer"} transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
+              className={`${
+                isLoading
+                  ? "bg-gray-700 cursor-default"
+                  : "bg-orange cursor-pointer"
+              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
               onClick={handleApproveTokenClick}
               disabled={isLoading}
             >
