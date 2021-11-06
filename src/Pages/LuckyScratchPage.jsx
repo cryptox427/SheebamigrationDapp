@@ -64,22 +64,23 @@ const initialCirclesState = [
   {
     id: 1,
     isPressed: false,
-    image: price1,
+    image: "",
   },
   {
     id: 2,
     isPressed: false,
-    image: price1,
+    image: "",
   },
   {
     id: 3,
     isPressed: false,
-    image: price1,
+    image: "",
   },
 ];
 
 export const LuckyScratchPage = () => {
   const prices = initialPricesState;
+  const [canFlippedCircles, setCanFlippedCircles] = useState(false);
   const [circlesState, setCirclesState] = useState(initialCirclesState);
   const [wallet, setWallet] = useState("");
   const [tokenBalance, setTokenBalance] = useState("");
@@ -177,7 +178,7 @@ export const LuckyScratchPage = () => {
           image: items[randomItem]
         });
 
-        items.slice(randomItem, 1);
+        items.splice(randomItem, 1);
       }
 
       setCirclesState(c => newCircles);
@@ -227,20 +228,51 @@ export const LuckyScratchPage = () => {
     }
   }, [tier]);
 
-  const handleMessageButtonClick = () => { };
+  const handleMessageButtonClick = () => {
+    if (success) {
+      console.log("Éxito");
+    }
+    else {
+      console.log("Fallo");
+    }
+
+    setMessage({
+      showMessage: false,
+      success: false,
+      value: 0
+    });
+    setCirclesState(initialCirclesState)
+    setCanFlippedCircles(false);
+  };
 
   const handleCircleClick = (id) => {
-    setCirclesState(
-      circlesState.map((circle) =>
-        circle.id === id ? { ...circle, isPressed: true } : circle
-      )
-    );
+    if (canFlippedCircles) {
+      let flippedCircles = 0;
+      setCirclesState(
+        circlesState.map((circle) => {
+          if (circle.isPressed) {
+            ++flippedCircles;
+          }
 
-    // TODO CHANGE message const [message, setMessage] = useState({
-    //   showMessage: false,
-    //   success: true,
-    //   value: 0,
-    // });
+          if (circle.id === id) {
+            ++flippedCircles
+            return {
+              ...circle,
+              isPressed: true
+            }
+          }
+          return circle;
+        })
+      );
+
+      if (flippedCircles === 3) {
+        setMessage({
+          showMessage: true,
+          success: tier !== 0,
+          value: 0
+        });
+      }
+    }
   };
 
   const handleApproveTokenClick = async () => {
@@ -248,6 +280,7 @@ export const LuckyScratchPage = () => {
       try {
         await buyticket();
         await pullTierStat(wallet);
+        setCanFlippedCircles(true);
       } catch (error) {
         console.log(error); // User denied ticket
       }
@@ -263,8 +296,6 @@ export const LuckyScratchPage = () => {
       }
     }
   };
-
-  console.log("Yooo", circlesState);
 
   return (
     <div
