@@ -15,7 +15,7 @@ function App() {
         <Switch>
           <Route exact path="/stats" component={Stats} />
           <Route exact path="/lucky-scratch" component={LuckyScratchPage} />
-          <Redirect to="/stats" />
+          <Redirect to="/lucky-scratch" />
         </Switch>
       </Layout>
     </Router>
