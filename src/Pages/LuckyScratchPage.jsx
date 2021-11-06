@@ -121,7 +121,7 @@ export const LuckyScratchPage = () => {
     setCardsSold(getCardsSold);
     setPlayers(players);
   }
-  
+
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -178,6 +178,7 @@ export const LuckyScratchPage = () => {
     } else if (tier !== "") {
       let itemPos;
 
+      // eslint-disable-next-line default-case
       switch (Number(tier)) {
         case 1:
           itemPos = 0;
