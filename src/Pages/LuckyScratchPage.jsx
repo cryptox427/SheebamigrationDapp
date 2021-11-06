@@ -93,6 +93,7 @@ export const LuckyScratchPage = () => {
   const [cardsSold, setCardsSold] = useState("");
   const [players, setPlayers] = useState("");
   const [allowance, setAllowance] = useState("");
+  const [tier, setTier] = useState("");
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
     buttonText: "Approve FACTORY",
@@ -113,11 +114,18 @@ export const LuckyScratchPage = () => {
     setTokenBalance(userTokenBalance / 10 ** 18);
     console.log(tokenBalance);
   }
+  async function pullTierStat(userWallet) {
+    let lastPlayerPrizeTier = await scratchHandler.methods
+      .returnLastWinTier(userWallet)
+      .call();
+    setTier(lastPlayerPrizeTier);
+    console.log(tier);
+  }
   async function pullGameData() {
     let getFactoryPaid = await scratchHandler.methods.totalFactorySold().call();
     let getCardsSold = await scratchHandler.methods.totalCardsSold().call();
     let players = await scratchHandler.methods.totalCardsSold().call();
-    setFactorySold(getFactoryPaid);
+    setFactorySold(getFactoryPaid / 10 ** 18);
     setCardsSold(getCardsSold);
     setPlayers(players);
   }
@@ -161,7 +169,7 @@ export const LuckyScratchPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleMessageButtonClick = () => { };
+  const handleMessageButtonClick = () => {};
 
   const handleCircleClick = (id) => {
     setCirclesState(
@@ -184,15 +192,13 @@ export const LuckyScratchPage = () => {
       } catch (error) {
         console.log(error); // User denied ticket
       }
-    }
-    else {
+    } else {
       try {
         await approveTokens();
         setApproveToken({
           isApproved: true,
-          buttonText: "BUY"
+          buttonText: "BUY",
         });
-        
       } catch (error) {
         console.log(error); // User denied transaction signature
       }
@@ -304,8 +310,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -340,8 +347,9 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${factorySold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${
+                  factorySold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -349,8 +357,9 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${cardsSold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -358,8 +367,9 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${players === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
