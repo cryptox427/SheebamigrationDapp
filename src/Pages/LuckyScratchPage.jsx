@@ -129,8 +129,8 @@ export const LuckyScratchPage = () => {
           setWallet(accounts[0]);
           setApproveToken({
             isApproved: false,
-            buttonText: "Approve FACTORY"
-          })
+            buttonText: "Approve FACTORY",
+          });
         } else {
           setWallet("");
         }
@@ -174,7 +174,6 @@ export const LuckyScratchPage = () => {
 
       setCirclesState((c) => newCircles);
       setCanFlippedCircles(true);
-
     } else if (tier !== "") {
       let itemPos;
 
@@ -219,7 +218,6 @@ export const LuckyScratchPage = () => {
       ]);
       setCanFlippedCircles(true);
     }
-
   }, [tier]);
 
   const handleMessageButtonClick = async () => {
@@ -288,8 +286,7 @@ export const LuckyScratchPage = () => {
 
         if (value < 1) {
           approveTokens();
-        }
-        else {
+        } else {
           setApproveToken({
             isApproved: true,
             buttonText: "BUY",
@@ -406,8 +403,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -442,8 +440,9 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${factorySold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${
+                  factorySold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -451,8 +450,9 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${cardsSold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -460,8 +460,9 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${players === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
