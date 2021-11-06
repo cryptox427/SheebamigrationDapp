@@ -5,6 +5,7 @@ import {
   buyticket,
   claim,
   pullTier,
+  pullAllowance,
 } from "../Utils/walletInteract";
 /* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
@@ -120,22 +121,16 @@ export const LuckyScratchPage = () => {
     setCardsSold(getCardsSold);
     setPlayers(players);
   }
-  async function pullAllowance(permissionAddress, contractAddress) {
-    let spendingAmount = mcfHandler.methods
-      .allowance(permissionAddress, contractAddress)
-      .call();
-    setAllowance(spendingAmount);
-    if (allowance > 1) {
-      console.log("hi");
-    } else {
-      console.log("no");
-    }
-  }
+  
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
           setWallet(accounts[0]);
+          setApproveToken({
+            isApproved: false,
+            buttonText: "Approve FACTORY"
+          })
         } else {
           setWallet("");
         }
@@ -150,7 +145,7 @@ export const LuckyScratchPage = () => {
       pullGameData();
       if (wallet.length > 0) {
         getUserBalance(wallet);
-        pullAllowance(wallet, contractAddress);
+        await pullAllowance(wallet, contractAddress);
       }
       console.log(wallet);
       console.log(allowance);
@@ -162,8 +157,7 @@ export const LuckyScratchPage = () => {
   useEffect(() => {
     const items = [price1, price2, price3, price4, price5, price6];
 
-    console.log("LLama el efecto", { tier });
-    if (tier === Number(0)) {
+    if (Number(tier) === 0) {
       const newCircles = [];
 
       for (let i = 1; i <= 3; ++i) {
@@ -179,26 +173,28 @@ export const LuckyScratchPage = () => {
       }
 
       setCirclesState((c) => newCircles);
+      setCanFlippedCircles(true);
+
     } else if (tier !== "") {
       let itemPos;
 
-      switch (tier) {
-        case Number(1):
+      switch (Number(tier)) {
+        case 1:
           itemPos = 0;
           break;
-        case Number(2):
+        case 2:
           itemPos = 1;
           break;
-        case Number(3):
+        case 3:
           itemPos = 2;
           break;
-        case Number(4):
+        case 4:
           itemPos = 3;
           break;
-        case Number(5):
+        case 5:
           itemPos = 4;
           break;
-        case Number(9):
+        case 9:
           itemPos = 5;
           break;
       }
@@ -222,6 +218,7 @@ export const LuckyScratchPage = () => {
       ]);
       setCanFlippedCircles(true);
     }
+
   }, [tier]);
 
   const handleMessageButtonClick = async () => {
@@ -268,7 +265,7 @@ export const LuckyScratchPage = () => {
       if (flippedCircles === 3) {
         setMessage({
           showMessage: true,
-          success: tier !== 0,
+          success: Number(tier) !== 0,
           value: 0,
         });
       }
@@ -286,11 +283,17 @@ export const LuckyScratchPage = () => {
       }
     } else {
       try {
-        await approveTokens();
-        setApproveToken({
-          isApproved: true,
-          buttonText: "BUY",
-        });
+        const value = await pullAllowance(wallet, gameAddress);
+
+        if (value < 1) {
+          approveTokens();
+        }
+        else {
+          setApproveToken({
+            isApproved: true,
+            buttonText: "BUY",
+          });
+        }
       } catch (error) {
         console.log(error); // User denied transaction signature
       }
