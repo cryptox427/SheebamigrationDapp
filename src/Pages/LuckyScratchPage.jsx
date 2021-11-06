@@ -22,6 +22,7 @@ import mcfCoin from "../Images/mcf coin.png";
 import MCFabi from "../ABI/mcfabi.json";
 import gameABI from "../ABI/gameAbi.json";
 import Web3 from "web3";
+import { Spinner } from "../components/Spinner/Spinner";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const gameAddress = "0xFB6549097F3A8893fddf6D4F4B7E6104Cd12318B";
@@ -92,6 +93,7 @@ export const LuckyScratchPage = () => {
   const [players, setPlayers] = useState("");
   const [allowance, setAllowance] = useState("");
   const [tier, setTier] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [wonPriceValue, setWonPriceValue] = useState(1000);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
@@ -142,13 +144,15 @@ export const LuckyScratchPage = () => {
       const { address } = await getCurrentWalletConnected();
       setWallet(address);
       addWalletListener();
-      pullGameData();
+      await pullGameData();
       if (wallet.length > 0) {
-        getUserBalance(wallet);
+        await getUserBalance(wallet);
         await pullAllowance(wallet, contractAddress);
       }
       console.log(wallet);
       console.log(allowance);
+
+      setIsLoading(false);
     }
     magic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -283,6 +287,7 @@ export const LuckyScratchPage = () => {
   };
 
   const handleApproveTokenClick = async () => {
+    setIsLoading(true);
     if (isApproved) {
       try {
         await buyticket();
@@ -307,6 +312,7 @@ export const LuckyScratchPage = () => {
         console.log(error); // User denied transaction signature
       }
     }
+    setIsLoading(false);
   };
 
   return (
@@ -503,10 +509,16 @@ export const LuckyScratchPage = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
+          {
+            isLoading && (
+              <Spinner />
+            )
+          }
           {allowance < 1 && (
             <button
-              className="bg-orange py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40"
+              className={`${isLoading ? "bg-gray-700 cursor-default" : "bg-orange cursor-pointer"} transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
               onClick={handleApproveTokenClick}
+              disabled={isLoading}
             >
               {buttonText}
             </button>
