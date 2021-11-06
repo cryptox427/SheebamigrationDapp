@@ -23,7 +23,7 @@ import gameABI from "../ABI/gameAbi.json";
 import Web3 from "web3";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
-const gameAddress = "0x2e92c50066E3AC5c2f7B930f144B42e992033cd3";
+const gameAddress = "0xFB6549097F3A8893fddf6D4F4B7E6104Cd12318B";
 const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 const scratchHandler = new web3.eth.Contract(gameABI, gameAddress);
 
@@ -121,7 +121,7 @@ export const LuckyScratchPage = () => {
     setPlayers(players);
   }
   async function pullAllowance(permissionAddress, contractAddress) {
-    let spendingAmount = await mcfHandler.methods
+    let spendingAmount = mcfHandler.methods
       .allowance(permissionAddress, contractAddress)
       .call();
     setAllowance(spendingAmount);
@@ -154,7 +154,6 @@ export const LuckyScratchPage = () => {
       }
       console.log(wallet);
       console.log(allowance);
-      console.log("hai");
     }
     magic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
