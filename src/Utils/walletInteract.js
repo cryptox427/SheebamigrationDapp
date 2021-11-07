@@ -141,3 +141,10 @@ export const pullAllowance = async (permissionWallet, scratchAddress) => {
     .call();
   return allowance;
 };
+
+export const pullLastPrize = async (playerWallet) => {
+  var myContract = new web3.eth.Contract(gameABI, gameAddress);
+  let prize = await myContract.methods.returnLastWonPrize(playerWallet).call();
+  console.log(prize);
+  return prize;
+};

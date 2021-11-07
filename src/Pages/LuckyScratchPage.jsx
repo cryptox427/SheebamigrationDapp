@@ -6,6 +6,7 @@ import {
   claim,
   pullTier,
   pullAllowance,
+  pullLastPrize,
 } from "../Utils/walletInteract";
 /* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
@@ -96,6 +97,7 @@ export const LuckyScratchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [wonPriceValue, setWonPriceValue] = useState(1000);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [lastWonPrize, setPrize] = useState("");
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
     buttonText: "Approve FACTORY",
@@ -147,12 +149,14 @@ export const LuckyScratchPage = () => {
       setWallet(address);
       addWalletListener();
       await pullGameData();
+      setPrize(await pullLastPrize(address));
+
       if (wallet.length > 0) {
         await getUserBalance(wallet);
         await pullAllowance(wallet, contractAddress);
       }
-      console.log(wallet);
-      console.log(allowance);
+      //console.log(wallet);
+      //console.log(allowance);
 
       setIsLoading(false);
     }
@@ -242,7 +246,7 @@ export const LuckyScratchPage = () => {
       setMessage({
         showMessage: true,
         success: Number(tier) !== "",
-        wasClaimed: true
+        wasClaimed: true,
       });
 
       try {
@@ -254,11 +258,10 @@ export const LuckyScratchPage = () => {
       console.log("Fail");
     }
 
-
     setMessage({
       showMessage: false,
       success: false,
-      wasClaimed: false
+      wasClaimed: false,
     });
     setIsPlaying(false);
     setWonPriceValue(1000);
@@ -308,7 +311,6 @@ export const LuckyScratchPage = () => {
         } catch (error) {
           console.log(error); // User denied ticket
         }
-        
       } else {
         try {
           const value = await pullAllowance(wallet, gameAddress);
@@ -346,21 +348,20 @@ export const LuckyScratchPage = () => {
           <p className="uppercase text-yellow font-bold text-2xl">
             You {success ? "won" : "lost"} {wonPriceValue} factory
           </p>
-          {
-            wasClaimed ? (
-              <label className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl">Claiming</label>
-            ) : (
-              <button
-                className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
-                onClick={handleMessageButtonClick}
-              >
-                {success ? "CLAIM" : "TRY AGAIN"}
-              </button>
-            )
-          }
+          {wasClaimed ? (
+            <label className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl">
+              Claiming
+            </label>
+          ) : (
+            <button
+              className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
+              onClick={handleMessageButtonClick}
+            >
+              {success ? "CLAIM" : "TRY AGAIN"}
+            </button>
+          )}
         </div>
-      )
-      }
+      )}
       <div>
         <div className="w-screen mt-10 mb-20 xl:my-0 flex flex-col xl:flex-row items-center justify-center gap-10 text-blue-900">
           <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
@@ -441,8 +442,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -477,8 +479,9 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${factorySold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${
+                  factorySold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -486,8 +489,9 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${cardsSold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -495,8 +499,9 @@ export const LuckyScratchPage = () => {
                 Total Players
               </h1>
               <div
-                className={`${players === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{players}</p>
               </div>
@@ -539,12 +544,14 @@ export const LuckyScratchPage = () => {
           >
             Rules & Gamble Disclaimer
           </label>
+          <button>{tier}</button>
           {allowance < 1 && (
             <button
-              className={`${(isLoading || tier !== "")
-                ? "bg-gray-700 cursor-default"
-                : "bg-orange cursor-pointer"
-                } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
+              className={`${
+                isLoading || tier !== ""
+                  ? "bg-gray-700 cursor-default"
+                  : "bg-orange cursor-pointer"
+              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
               onClick={handleApproveTokenClick}
               disabled={isLoading && tier !== ""}
             >
@@ -553,6 +560,6 @@ export const LuckyScratchPage = () => {
           )}
         </div>
       </div>
-    </div >
+    </div>
   );
 };
