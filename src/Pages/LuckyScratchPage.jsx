@@ -6,7 +6,6 @@ import {
   claim,
   pullTier,
   pullAllowance,
-  pullLastPrize,
 } from "../Utils/walletInteract";
 /* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
