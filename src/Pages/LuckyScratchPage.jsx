@@ -128,6 +128,13 @@ export const LuckyScratchPage = () => {
     setPlayers(players);
   }
 
+  async function pullLastPrize(userWallet) {
+    let prize = await scratchHandler.methods
+      .returnLastWonPrize(userWallet)
+      .call();
+    //console.log(`Prize is ${prize}`);
+    setPrize(prize);
+  }
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -146,17 +153,19 @@ export const LuckyScratchPage = () => {
   useEffect(() => {
     async function magic() {
       const { address } = await getCurrentWalletConnected();
+
       setWallet(address);
       addWalletListener();
       await pullGameData();
-      setPrize(await pullLastPrize(address));
 
       if (wallet.length > 0) {
         await getUserBalance(wallet);
         await pullAllowance(wallet, contractAddress);
+        setPrize(await pullLastPrize(address));
       }
       //console.log(wallet);
       //console.log(allowance);
+      console.log(lastWonPrize);
 
       setIsLoading(false);
     }
@@ -496,14 +505,18 @@ export const LuckyScratchPage = () => {
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
               <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
-                Total Players
+                Playing right now
               </h1>
               <div
                 className={`${
                   players === "" ? "py-5" : "py-1"
                 } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
-                <p className="font-bold text-xl">{players}</p>
+                <p className="font-bold text-xl">
+                  {String(wallet).substring(0, 8) +
+                    "..." +
+                    String(wallet).substring(38)}
+                </p>
               </div>
               <div className="text-center text-sm mt-5">
                 <p>
@@ -536,15 +549,7 @@ export const LuckyScratchPage = () => {
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
           {isLoading && <Spinner />}
-          <label
-            className="border-b-2	border-blue-900"
-            onClick={() => {
-              pullTier(wallet);
-            }}
-          >
-            Rules & Gamble Disclaimer
-          </label>
-          <button>{tier}</button>
+
           {allowance < 1 && (
             <button
               className={`${
