@@ -95,6 +95,7 @@ export const LuckyScratchPage = () => {
   const [tier, setTier] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [wonPriceValue, setWonPriceValue] = useState(1000);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
     buttonText: "Approve FACTORY",
@@ -102,9 +103,10 @@ export const LuckyScratchPage = () => {
   const [message, setMessage] = useState({
     showMessage: false,
     success: true,
+    wasClaimed: false,
   });
 
-  const { showMessage, success } = message;
+  const { showMessage, success, wasClaimed } = message;
   const { isApproved, buttonText } = approveToken;
 
   async function getUserBalance(userAddress) {
@@ -237,6 +239,12 @@ export const LuckyScratchPage = () => {
 
   const handleMessageButtonClick = async () => {
     if (success) {
+      setMessage({
+        showMessage: true,
+        success: Number(tier) !== "",
+        wasClaimed: true
+      });
+
       try {
         await claim();
       } catch (error) {
@@ -246,11 +254,13 @@ export const LuckyScratchPage = () => {
       console.log("Fail");
     }
 
+
     setMessage({
       showMessage: false,
       success: false,
+      wasClaimed: false
     });
-
+    setIsPlaying(false);
     setWonPriceValue(1000);
     setCirclesState(initialCirclesState);
     setCanFlippedCircles(false);
@@ -287,20 +297,22 @@ export const LuckyScratchPage = () => {
   };
 
   const handleApproveTokenClick = async () => {
-    if (!canFlippedCircles || !showMessage) {
+    if (!isPlaying) {
       setIsLoading(true);
       if (isApproved) {
         try {
           await buyticket();
           const tier = await pullTier(wallet);
           setTier(tier);
+          setIsPlaying(true);
         } catch (error) {
           console.log(error); // User denied ticket
         }
+        
       } else {
         try {
           const value = await pullAllowance(wallet, gameAddress);
-  
+
           if (value < 1) {
             approveTokens();
           } else {
@@ -334,14 +346,21 @@ export const LuckyScratchPage = () => {
           <p className="uppercase text-yellow font-bold text-2xl">
             You {success ? "won" : "lost"} {wonPriceValue} factory
           </p>
-          <button
-            className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
-            onClick={handleMessageButtonClick}
-          >
-            {success ? "CLAIM" : "TRY AGAIN"}
-          </button>
+          {
+            wasClaimed ? (
+              <label className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl">Claiming</label>
+            ) : (
+              <button
+                className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
+                onClick={handleMessageButtonClick}
+              >
+                {success ? "CLAIM" : "TRY AGAIN"}
+              </button>
+            )
+          }
         </div>
-      )}
+      )
+      }
       <div>
         <div className="w-screen mt-10 mb-20 xl:my-0 flex flex-col xl:flex-row items-center justify-center gap-10 text-blue-900">
           <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
@@ -534,6 +553,6 @@ export const LuckyScratchPage = () => {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
