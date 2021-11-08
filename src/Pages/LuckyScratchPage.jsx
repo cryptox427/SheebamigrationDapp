@@ -541,8 +541,8 @@ export const LuckyScratchPage = () => {
                   <span>
                     {" "}
                     How to play? Click approve to approve tokens, buy ticket
-                    wait for transaction to go thru click the circles and see if
-                    you won!
+                    wait for transaction to go through click the circles and see
+                    if you won!
                   </span>
                   <span> </span>
                   <span className="text-red-400">
