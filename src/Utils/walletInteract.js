@@ -141,3 +141,9 @@ export const pullAllowance = async (permissionWallet, scratchAddress) => {
     .call();
   return allowance;
 };
+
+export const pullIsPlaying = async (playingAddress) => {
+  var myContract = new web3.eth.Contract(gameABI, gameAddress);
+  let status = await myContract.methods.isActive(playingAddress).call();
+  return status;
+};

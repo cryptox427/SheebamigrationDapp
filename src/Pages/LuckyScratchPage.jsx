@@ -98,6 +98,7 @@ export const LuckyScratchPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [lastWonPrize, setPrize] = useState("");
   const [isMounted, setIsMounted] = useState(true);
+  const [isActive, setIsActive] = useState("");
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
     buttonText: "Approve FACTORY",
@@ -506,7 +507,7 @@ export const LuckyScratchPage = () => {
               </div>
               <div
                 className={`${
-                  factorySold === "" ? "py-5" : "py-1"
+                  Math.round(factorySold) === "" ? "py-5" : "py-1"
                 } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
@@ -565,20 +566,6 @@ export const LuckyScratchPage = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
-          {isLoading && <Spinner />}
-          {isMounted && wallet > 0 && !showMessage && (
-            <button
-              className={`${
-                isLoading || tier !== ""
-                  ? "bg-gray-700 cursor-default"
-                  : "bg-orange cursor-pointer"
-              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
-              onClick={handleClaimButtonClick}
-              disabled={isLoading}
-            >
-              Claim
-            </button>
-          )}
           {allowance < 1 && (
             <button
               className={`${
