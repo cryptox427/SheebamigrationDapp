@@ -97,6 +97,7 @@ export const LuckyScratchPage = () => {
   const [wonPriceValue, setWonPriceValue] = useState(1000);
   const [isPlaying, setIsPlaying] = useState(false);
   const [lastWonPrize, setPrize] = useState("");
+  const [isMounted, setIsMounted] = useState(true);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
     buttonText: "Approve FACTORY",
@@ -254,8 +255,10 @@ export const LuckyScratchPage = () => {
 
     try {
       await claim();
+      setIsMounted(false);
     } catch (error) {
       console.log(error);
+      setIsMounted(true);
     }
 
     setIsLoading(false);
@@ -325,6 +328,7 @@ export const LuckyScratchPage = () => {
       if (isApproved) {
         try {
           await buyticket();
+          setIsMounted(false);
           const tier = await pullTier(wallet);
           setTier(tier);
           setIsPlaying(true);
@@ -366,7 +370,13 @@ export const LuckyScratchPage = () => {
             {success ? "Congratulations" : "Try again"}
           </h1>
           <p className="uppercase text-yellow font-bold text-2xl">
-            You {success ? "won" : "lost"} {wonPriceValue} factory
+            {
+              success
+                ?
+                `You won ${wonPriceValue} factoru`
+                :
+                "You didn't win! Better look next time"
+            }
           </p>
           {wasClaimed ? (
             <label className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl">
@@ -557,7 +567,7 @@ export const LuckyScratchPage = () => {
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
           {isLoading && <Spinner />}
           {
-            wallet > 0 && !showMessage && (
+            isMounted && wallet > 0 && !showMessage && (
               <button
                 className={`${isLoading || tier !== ""
                   ? "bg-gray-700 cursor-default"
