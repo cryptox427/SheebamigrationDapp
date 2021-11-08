@@ -66,7 +66,7 @@ export const Header = () => {
             <button className="connectWalletButton">
               <span className="shadow"></span>
               <span className="edge"></span>
-              <span className="front text">Lucky Scratch</span>
+              <span className="front text">Go to homepage</span>
             </button>
           </a>
         </div>
