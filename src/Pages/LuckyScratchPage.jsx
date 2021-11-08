@@ -25,7 +25,7 @@ import Web3 from "web3";
 import { Spinner } from "../components/Spinner/Spinner";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
-const gameAddress = "0xFB6549097F3A8893fddf6D4F4B7E6104Cd12318B";
+const gameAddress = "0xf1B6448aA3c904b50b27b4283587Cf5E8209524C";
 const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
 const scratchHandler = new web3.eth.Contract(gameABI, gameAddress);
 
@@ -541,7 +541,8 @@ export const LuckyScratchPage = () => {
                   <span>
                     {" "}
                     How to play? Click approve to approve tokens, buy ticket
-                    click the circles and see if you won!
+                    wait for transaction to go thru click the circles and see if
+                    you won!
                   </span>
                   <span> </span>
                   <span className="text-red-400">

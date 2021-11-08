@@ -4,7 +4,7 @@ import gameABI from "../ABI/gameAbi.json";
 const web3 = new Web3(Web3.givenProvider);
 
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
-const gameAddress = "0xFB6549097F3A8893fddf6D4F4B7E6104Cd12318B";
+const gameAddress = "0xf1B6448aA3c904b50b27b4283587Cf5E8209524C";
 let approvedTokens = web3.utils.toBN("50000000000000000000000");
 
 //const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
