@@ -538,8 +538,16 @@ export const LuckyScratchPage = () => {
               </div>
               <div className="text-center text-sm mt-5">
                 <p>
-                  Do not send funds to the contract address as they will be lost
-                  This is Defi, play at your own risk.
+                  <span>
+                    {" "}
+                    How to play? Click approve to approve tokens, buy ticket
+                    click the circles and see if you won!
+                  </span>
+                  <span> </span>
+                  <span className="text-red-400">
+                    Do not send funds to the contract address as they will be
+                    lost This is Defi, play at your own risk.
+                  </span>
                 </p>
               </div>
             </div>
