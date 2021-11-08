@@ -7,6 +7,7 @@ import {
   pullTier,
   pullAllowance,
 } from "../Utils/walletInteract";
+//
 /* eslint-disable no-unused-vars */
 import background from "../Images/background.png";
 import boxes from "../Images/boxes.png";
