@@ -40,7 +40,7 @@ if (ethereum) {
 const initialPricesState = [
   {
     logo: price1,
-    price: "1,250",
+    price: "1,000",
   },
   {
     logo: price2,
@@ -52,11 +52,11 @@ const initialPricesState = [
   },
   {
     logo: price4,
-    price: "12,500",
+    price: "10,000",
   },
   {
     logo: price5,
-    price: "42,500",
+    price: "25,000",
   },
   {
     logo: price6,
@@ -204,7 +204,7 @@ export const LuckyScratchPage = () => {
         switch (Number(tier)) {
           case 1:
             itemPos = 0;
-            wonValue = 1250;
+            wonValue = 1000;
             break;
           case 2:
             itemPos = 1;
@@ -216,11 +216,11 @@ export const LuckyScratchPage = () => {
             break;
           case 4:
             itemPos = 3;
-            wonValue = 12500;
+            wonValue = 10000;
             break;
           case 5:
             itemPos = 4;
-            wonValue = 42500;
+            wonValue = 25000;
             break;
           case 9:
             itemPos = 5;
