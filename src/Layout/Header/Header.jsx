@@ -59,8 +59,8 @@ export const Header = () => {
     <div className="mainHeaderContainer">
       <div className="flex flex-col gap-10 p-5 inContain sm:flex-row sm:gap-0 sm:py-0">
         <div className="leftContainer">
-          <Link
-            to="/lucky-scratch"
+          <a
+            href="https://memecoinfactory.com/"
             className="connectWalletButton"
           >
             <button className="connectWalletButton">
@@ -68,7 +68,7 @@ export const Header = () => {
               <span className="edge"></span>
               <span className="front text">Lucky Scratch</span>
             </button>
-          </Link>
+          </a>
         </div>
         <div className="middleContainer">
           <div
