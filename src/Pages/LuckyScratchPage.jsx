@@ -118,7 +118,7 @@ export const LuckyScratchPage = () => {
       .balanceOf(userAddress)
       .call();
     setTokenBalance(userTokenBalance / 10 ** 18);
-    console.log(tokenBalance);
+    //console.log(tokenBalance);
   }
 
   async function pullGameData() {
@@ -167,7 +167,7 @@ export const LuckyScratchPage = () => {
       }
       //console.log(wallet);
       //console.log(allowance);
-      console.log(lastWonPrize);
+      //console.log(lastWonPrize);
 
       setIsLoading(false);
     }
@@ -333,7 +333,7 @@ export const LuckyScratchPage = () => {
           setIsMounted(false);
           const tier = await pullTier(wallet);
           setTier(tier);
-          setTier("0");
+          //setTier("0");
           setIsPlaying(true);
         } catch (error) {
           console.log(error); // User denied ticket
@@ -471,8 +471,9 @@ export const LuckyScratchPage = () => {
                 {circlesState.map(({ id, isPressed, image }) => (
                   <div
                     key={id}
-                    className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                      } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                    className={`${
+                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
                     onClick={() => handleCircleClick(id)}
                   >
                     {isPressed && (
@@ -507,8 +508,9 @@ export const LuckyScratchPage = () => {
                 <h1>FACTORY paid</h1>
               </div>
               <div
-                className={`${Math.round(factorySold) === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                className={`${
+                  Math.round(factorySold) === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{factorySold}</p>
               </div>
@@ -516,8 +518,9 @@ export const LuckyScratchPage = () => {
                 Scratch Card Sold
               </h1>
               <div
-                className={`${cardsSold === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  cardsSold === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">{cardsSold}</p>
               </div>
@@ -525,8 +528,9 @@ export const LuckyScratchPage = () => {
                 Playing right now
               </h1>
               <div
-                className={`${players === "" ? "py-5" : "py-1"
-                  } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                className={`${
+                  players === "" ? "py-5" : "py-1"
+                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
               >
                 <p className="font-bold text-xl">
                   {String(wallet).substring(0, 8) +
@@ -574,26 +578,26 @@ export const LuckyScratchPage = () => {
 
         <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
           {isLoading && <Spinner />}
-          {
-            isMounted && wallet > 0 && !showMessage && (
-              <button
-                className={`${isLoading || tier !== ""
+          {isMounted && wallet > 0 && !showMessage && (
+            <button
+              className={`${
+                isLoading || tier !== ""
                   ? "bg-gray-700 cursor-default"
                   : "bg-orange cursor-pointer"
-                  } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
-                onClick={handleClaimButtonClick}
-                disabled={isLoading}
-              >
-                Claim
-              </button>
-            )
-          }
+              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
+              onClick={handleClaimButtonClick}
+              disabled={isLoading}
+            >
+              Claim
+            </button>
+          )}
           {allowance < 1 && (
             <button
-              className={`${isLoading || tier !== ""
-                ? "bg-gray-700 cursor-default"
-                : "bg-orange cursor-pointer"
-                } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
+              className={`${
+                isLoading || tier !== ""
+                  ? "bg-gray-700 cursor-default"
+                  : "bg-orange cursor-pointer"
+              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
               onClick={handleApproveTokenClick}
               disabled={isLoading || tier !== ""}
             >

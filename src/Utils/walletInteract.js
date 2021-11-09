@@ -129,7 +129,7 @@ export const pullTier = async (userWallet) => {
   var myContract = new web3.eth.Contract(gameABI, gameAddress);
   let hello = await myContract.methods.returnLastWinTier(userWallet).call();
 
-  //console.log(hello);
+  console.log(hello);
 
   return hello;
 };
