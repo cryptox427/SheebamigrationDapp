@@ -606,7 +606,7 @@ export const LuckyScratchPage = () => {
               </button>
             )}
             <button
-              className="text-gray-900 border-b-2 border-gray-900"
+              className="text-gray-900 border-b-2 border-gray-900 z-40"
               onClick={() => setIsPopupOpen(true)}
             >
               Rules & Gamble Aware

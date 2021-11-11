@@ -43,10 +43,10 @@ export const RulesGambleAware = ({ isOpen, close }) => {
       </div>
       <div className="flex flex-col gap-10 items-center">
         <h1 className="text-gradient font-bold text-2xl sm:text-5xl">Rules & Gamble Aware</h1>
-        <div className="flex flex-col md:flex-row gap-10">
-          <div className="text-center w-72 h-92">
+        <div className="flex flex-col md:flex-row gap-10 text-lg">
+          <div className="text-center w-80 h-92">
             <h1 className="mb-3">How to Play</h1>
-            <div className="rounded-xl border-2 border-red-600 p-5 bg-yellow text-black flex flex-col gap-2">
+            <div className="rounded-xl border-2 border-red-600 py-5 px-2 bg-yellow text-black flex flex-col gap-2">
               <p>Connect your wallet</p>
               <p>Approve FACTORY</p>
               <p>Click buy and confirm</p>
@@ -67,7 +67,7 @@ export const RulesGambleAware = ({ isOpen, close }) => {
               <p>to search for services in your area</p>
             </div>
           </div>
-          <div className="flex flex-col text-center w-72 h-92">
+          <div className="flex flex-col text-center w-80 h-92">
             <h1 className="mb-3">Scratchies Odds</h1>
             <div className="rounded-xl border-2 border-red-600 py-5 px-10 bg-yellow text-black flex flex-col justify-between flex-1">
               {
