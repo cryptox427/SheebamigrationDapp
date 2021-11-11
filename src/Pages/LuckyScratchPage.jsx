@@ -9,6 +9,7 @@ import {
 } from "../Utils/walletInteract";
 //
 /* eslint-disable no-unused-vars */
+import { RulesGambleAware } from '../components/RulesGambleAware/RulesGambleAware'
 import background from "../Images/background.png";
 import boxes from "../Images/boxes.png";
 import logo from "../Images/logo.png";
@@ -85,6 +86,7 @@ const initialCirclesState = [
 
 export const LuckyScratchPage = () => {
   const prices = initialPricesState;
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [canFlippedCircles, setCanFlippedCircles] = useState(false);
   const [circlesState, setCirclesState] = useState(initialCirclesState);
   const [wallet, setWallet] = useState("");
@@ -359,253 +361,259 @@ export const LuckyScratchPage = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-      }}
-      className="w-full h-auto xl:h-screen flex items-center relative overflow-hidden"
-    >
-      {showMessage && (
-        <div className="flex flex-col items-center gap-5 absolute w-screen bg-gray-700 bottom-0 left-0 z-50 py-10 px-10 lg:px-40">
-          <h1 className="text-5xl text-center font-extrabold text-yellow text-shadow">
-            {success ? "Congratulations" : "Try again"}
-          </h1>
-          <p className="uppercase text-yellow font-bold text-2xl">
-            {success
-              ? `You won ${wonPriceValue} FACTORY`
-              : "You didn't win! Better luck next time"}
-          </p>
-          {wasClaimed ? (
-            <label className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl">
-              Claiming
-            </label>
-          ) : (
-            <button
-              className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
-              onClick={handleMessageButtonClick}
-            >
-              {success ? "CLAIM" : "TRY AGAIN"}
-            </button>
-          )}
-        </div>
-      )}
-      <div>
-        <div className="w-screen mt-10 mb-20 xl:my-0 flex flex-col xl:flex-row items-center justify-center gap-10 text-blue-900">
-          <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
-            <h1 className="font-bold text-blue-900 text-center text-xl">
-              Prize Chart
+    <>
+      <RulesGambleAware
+        isOpen={isPopupOpen}
+        close={() => setIsPopupOpen(false)}
+      />
+      <div
+        style={{
+          backgroundImage: `url(${background})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+        }}
+        className="w-full h-auto xl:h-screen flex items-center relative overflow-hidden"
+      >
+        {showMessage && (
+          <div className="flex flex-col items-center gap-5 absolute w-screen bg-gray-700 bottom-0 left-0 z-50 py-10 px-10 lg:px-40">
+            <h1 className="text-5xl text-center font-extrabold text-yellow text-shadow">
+              {success ? "Congratulations" : "Try again"}
             </h1>
-            <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl p-5 bg-yellow">
-              {prices.map(({ logo, price }) => (
-                <div key={logo} className="flex justify-between">
-                  <div className="flex gap-2">
-                    <div
-                      style={{
-                        backgroundImage: `url(${logo})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center center",
-                      }}
-                      className="h-5 w-5"
-                    />
-                    <div
-                      style={{
-                        backgroundImage: `url(${logo})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center center",
-                      }}
-                      className="h-5 w-5"
-                    />
-                    <div
-                      style={{
-                        backgroundImage: `url(${logo})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center center",
-                      }}
-                      className="h-5 w-5"
-                    />
+            <p className="uppercase text-yellow font-bold text-2xl">
+              {success
+                ? `You won ${wonPriceValue} FACTORY`
+                : "You didn't win! Better luck next time"}
+            </p>
+            {wasClaimed ? (
+              <label className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl">
+                Claiming
+              </label>
+            ) : (
+              <button
+                className="bg-orange font-bold rounded-xl py-2 px-5 text-yellow text-3xl"
+                onClick={handleMessageButtonClick}
+              >
+                {success ? "CLAIM" : "TRY AGAIN"}
+              </button>
+            )}
+          </div>
+        )}
+        <div>
+          <div className="w-screen mt-10 mb-20 xl:my-0 flex flex-col xl:flex-row items-center justify-center gap-10 text-blue-900">
+            <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
+              <h1 className="font-bold text-blue-900 text-center text-xl">
+                Prize Chart
+              </h1>
+              <div className="flex flex-col gap-5 border-4 border-yellow-700 rounded-xl p-5 bg-yellow">
+                {prices.map(({ logo, price }) => (
+                  <div key={logo} className="flex justify-between">
+                    <div className="flex gap-2">
+                      <div
+                        style={{
+                          backgroundImage: `url(${logo})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center center",
+                        }}
+                        className="h-5 w-5"
+                      />
+                      <div
+                        style={{
+                          backgroundImage: `url(${logo})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center center",
+                        }}
+                        className="h-5 w-5"
+                      />
+                      <div
+                        style={{
+                          backgroundImage: `url(${logo})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center center",
+                        }}
+                        className="h-5 w-5"
+                      />
+                    </div>
+                    <div className="flex items-center gap-5">
+                      <label className="font-bold">{price}</label>
+                      <div
+                        style={{
+                          backgroundImage: `url(${mcfCoin})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center center",
+                        }}
+                        className="h-5 w-5"
+                      />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-5">
-                    <label className="font-bold">{price}</label>
+                ))}
+                <div className="flex flex-col gap-2 self-center">
+                  <div className="flex gap-5 self-center items-center">
+                    <h1 className="text-2xl font-bold">1,000</h1>
                     <div
                       style={{
                         backgroundImage: `url(${mcfCoin})`,
                         backgroundSize: "cover",
                         backgroundPosition: "center center",
                       }}
-                      className="h-5 w-5"
+                      className="h-10 w-10"
                     />
                   </div>
+                  <p className="font-bold self-center text-xs">
+                    per Scratch Card
+                  </p>
                 </div>
-              ))}
-              <div className="flex flex-col gap-2 self-center">
-                <div className="flex gap-5 self-center items-center">
-                  <h1 className="text-2xl font-bold">1,000</h1>
+              </div>
+            </div>
+            <div className="w-9/12 sm:w-7/12 md:w-9/12 lg:w-1/2">
+              <div className="flex flex-col gap-10 justify-evenly w-full h:auto md:h-96 bg-orange border-4 border-yellow rounded-xl p-10">
+                <div
+                  style={{
+                    backgroundImage: `url(${logo})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center center",
+                  }}
+                  className="mx-auto w-32 h-12 sm:w-60 sm:h-24 md:w-60 md:h-24"
+                />
+                <div className="flex flex-col md:flex-row items-center justify-center gap-20 w-full">
+                  {circlesState.map(({ id, isPressed, image }) => (
+                    <div
+                      key={id}
+                      className={`${isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
+                        } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
+                      onClick={() => handleCircleClick(id)}
+                    >
+                      {isPressed && (
+                        <div
+                          style={{
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: "auto 100%",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center",
+                          }}
+                          className="h-8 w-20"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
+              <div>
+                <div className="flex items-center justify-center gap-1.5 font-bold text-blue-900 text-lg">
+                  <h1>TOTAL</h1>
                   <div
                     style={{
                       backgroundImage: `url(${mcfCoin})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center center",
                     }}
-                    className="h-10 w-10"
+                    className="h-5 w-5"
                   />
+                  <h1>FACTORY paid</h1>
                 </div>
-                <p className="font-bold self-center text-xs">
-                  per Scratch Card
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="w-9/12 sm:w-7/12 md:w-9/12 lg:w-1/2">
-            <div className="flex flex-col gap-10 justify-evenly w-full h:auto md:h-96 bg-orange border-4 border-yellow rounded-xl p-10">
-              <div
-                style={{
-                  backgroundImage: `url(${logo})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center center",
-                }}
-                className="mx-auto w-60 h-24"
-              />
-              <div className="flex flex-col md:flex-row items-center justify-center gap-20 w-full">
-                {circlesState.map(({ id, isPressed, image }) => (
-                  <div
-                    key={id}
-                    className={`${
-                      isPressed ? "bg-blue-300" : "bg-purple-300 cursor-pointer"
-                    } flex justify-center items-center rounded-full border-4 border-yellow flex-shrink-0 h-24 w-24 font-bold`}
-                    onClick={() => handleCircleClick(id)}
-                  >
-                    {isPressed && (
-                      <div
-                        style={{
-                          backgroundImage: `url(${image})`,
-                          backgroundSize: "auto 100%",
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "center",
-                        }}
-                        className="h-8 w-20"
-                      />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="w-9/12 sm:w-7/12 md:w-5/12 lg:w-4/12 xl:w-2/12">
-            <div>
-              <div className="flex items-center justify-center gap-1.5 font-bold text-blue-900 text-lg">
-                <h1>TOTAL</h1>
                 <div
-                  style={{
-                    backgroundImage: `url(${mcfCoin})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center center",
-                  }}
-                  className="h-5 w-5"
-                />
-                <h1>FACTORY paid</h1>
-              </div>
-              <div
-                className={`${
-                  Math.round(factorySold) === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
-              >
-                <p className="font-bold text-xl">{factorySold}</p>
-              </div>
-              <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
-                Scratch Card Sold
-              </h1>
-              <div
-                className={`${
-                  cardsSold === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
-              >
-                <p className="font-bold text-xl">{cardsSold}</p>
-              </div>
-              <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
-                Playing right now
-              </h1>
-              <div
-                className={`${
-                  players === "" ? "py-5" : "py-1"
-                } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
-              >
-                <p className="font-bold text-xl">
-                  {String(wallet).substring(0, 8) +
-                    "..." +
-                    String(wallet).substring(38)}
-                </p>
-              </div>
-              <div className="text-center text-sm mt-5">
-                <p>
-                  <span>
-                    {" "}
-                    How to play? Click approve to approve tokens, buy ticket
-                    wait for transaction to go through, click the circles and
-                    see if you won!
-                  </span>
-                  <span> </span>
-                  <span className="text-red-400">
-                    Do not send funds to the contract address as they will be
-                    lost This is Defi, play at your own risk.
-                  </span>
-                </p>
+                  className={`${Math.round(factorySold) === "" ? "py-5" : "py-1"
+                    } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right px-2 bg-yellow`}
+                >
+                  <p className="font-bold text-xl">{factorySold}</p>
+                </div>
+                <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
+                  Scratch Card Sold
+                </h1>
+                <div
+                  className={`${cardsSold === "" ? "py-5" : "py-1"
+                    } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                >
+                  <p className="font-bold text-xl">{cardsSold}</p>
+                </div>
+                <h1 className="font-bold text-blue-900 text-lg text-center mt-5">
+                  Playing right now
+                </h1>
+                <div
+                  className={`${players === "" ? "py-5" : "py-1"
+                    } flex flex-col gap-5 border-4 border-yellow-700 rounded-xl text-right py-1 px-2 bg-yellow`}
+                >
+                  <p className="font-bold text-xl">
+                    {String(wallet).substring(0, 8) +
+                      "..." +
+                      String(wallet).substring(38)}
+                  </p>
+                </div>
+                <div className="text-center text-sm mt-5">
+                  <p>
+                    <span>
+                      {" "}
+                      How to play? Click approve to approve tokens, buy ticket
+                      wait for transaction to go through, click the circles and
+                      see if you won!
+                    </span>
+                    <span> </span>
+                    <span className="text-red-400">
+                      Do not send funds to the contract address as they will be
+                      lost This is Defi, play at your own risk.
+                    </span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex justify-evenly w-screen absolute -bottom-5">
-          <div
-            style={{
-              backgroundImage: `url(${boxes})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-            }}
-            className="w-1/4 h-28"
-          />
-          <div
-            style={{
-              backgroundImage: `url(${boxes})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-            }}
-            className="w-1/4 h-28"
-          />
-        </div>
+          <div className="flex justify-evenly w-screen absolute -bottom-5">
+            <div
+              style={{
+                backgroundImage: `url(${boxes})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+              }}
+              className="w-1/4 h-28"
+            />
+            <div
+              style={{
+                backgroundImage: `url(${boxes})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+              }}
+              className="w-1/4 h-28"
+            />
+          </div>
 
-        <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
-          {isLoading && <Spinner />}
-          {isMounted && wallet > 0 && !showMessage && (
-            <button
-              className={`${
-                isLoading || tier !== ""
+          <div className="flex flex-col items-center justify-center gap-2 mt-10 w-full">
+            {isLoading && <Spinner />}
+            {isMounted && wallet > 0 && !showMessage && (
+              <button
+                className={`${isLoading || tier !== ""
                   ? "bg-gray-700 cursor-default"
                   : "bg-orange cursor-pointer"
-              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
-              onClick={handleClaimButtonClick}
-              disabled={isLoading}
-            >
-              Claim
-            </button>
-          )}
-          {allowance < 1 && (
-            <button
-              className={`${
-                isLoading || tier !== ""
+                  } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
+                onClick={handleClaimButtonClick}
+                disabled={isLoading}
+              >
+                Claim
+              </button>
+            )}
+            {allowance < 1 && (
+              <button
+                className={`${isLoading || tier !== ""
                   ? "bg-gray-700 cursor-default"
                   : "bg-orange cursor-pointer"
-              } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
-              onClick={handleApproveTokenClick}
-              disabled={isLoading || tier !== ""}
+                  } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
+                onClick={handleApproveTokenClick}
+                disabled={isLoading || tier !== ""}
+              >
+                {buttonText}
+              </button>
+            )}
+            <button
+              className="text-gray-900 border-b-2 border-gray-900"
+              onClick={() => setIsPopupOpen(true)}
             >
-              {buttonText}
+              Rules & Gamble Aware
             </button>
-          )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -1,0 +1,8 @@
+.text-gradient {
+  background-clip: text;
+  background-image: -moz-repeating-linear-gradient( 180deg, #fcff2e 20px, #ffcc78 21px);
+  background-image: -o-repeating-linear-gradient( 180deg, #fcff2e 20px, #ffcc78 21px);
+  background-image: -webkit-repeating-linear-gradient( 180deg, #fcff2e 20px, #ffcc78 21px);
+  background-image: repeating-linear-gradient( 180deg, #fcff2e 20px, #ffcc78 21px);
+  color: transparent;
+}
