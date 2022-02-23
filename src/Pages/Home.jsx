@@ -70,6 +70,7 @@ export const Stats = () => {
       try {
         await migrateTokens(claimableBalance);
         setIsMounted(false);
+        pullBalance(wallet);
       } catch (error) {
         console.log(error); // User denied ticket
       }
