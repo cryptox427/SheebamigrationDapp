@@ -15,7 +15,7 @@ import lowCable from "../Images/mid cable smol.png";
 import { Spinner } from "../components/Spinner/Spinner";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
-const migrationContractAddress = "0xdcd48A39B9769B59938FFaa0C53a93F74dD69633";
+const migrationContractAddress = "0x74A6b8D20c55aC1564D42C596041Fb90c5f780ee";
 
 const ethereum = window.ethereum;
 if (ethereum) {
