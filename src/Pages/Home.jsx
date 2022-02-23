@@ -31,7 +31,7 @@ export const Stats = () => {
   const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
-    buttonText: "Approve FACTORY",
+    buttonText: "Coming Soon",
   });
   const [claimableBalance, setClaimable] = useState("");
   const [wallet, setWallet] = useState("");
@@ -42,7 +42,7 @@ export const Stats = () => {
         if (accounts.length > 0) {
           setApproveToken({
             isApproved: false,
-            buttonText: "Approve FACTORY",
+            buttonText: "Coming Soon",
           });
           setWallet(accounts[0]);
           pullBalance(accounts[0]);
@@ -153,7 +153,7 @@ export const Stats = () => {
             className={`${
               isLoading
                 ? "bg-gray-700 cursor-default"
-                : "bg-orange cursor-pointer"
+                : "bg-gray-700 cursor-pointer"
             } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
             onClick={handleApproveTokenClick}
             disabled
