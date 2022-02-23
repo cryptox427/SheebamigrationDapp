@@ -108,10 +108,12 @@ export const Stats = () => {
 
       setWallet(address);
       addWalletListener();
-      pullBalance(address);
+      try {
+        pullBalance(address);
+      } catch {}
 
       if (wallet.length > 0) {
-        pullBalance(wallet);
+        pullBalance(address);
         await pullAllowance(wallet, migrationContractAddress);
         console.log(claimDividends);
       }
@@ -154,7 +156,7 @@ export const Stats = () => {
                 : "bg-orange cursor-pointer"
             } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
             onClick={handleApproveTokenClick}
-            disabled={isLoading}
+            disabled
           >
             {buttonText}
           </button>
