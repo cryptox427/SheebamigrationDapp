@@ -1,10 +1,12 @@
 import Web3 from "web3";
 import MCFabi from "../ABI/mcfabi.json";
 import gameABI from "../ABI/gameAbi.json";
+import migrationABI from "../ABI/migrationABI.json";
 const web3 = new Web3(Web3.givenProvider);
 
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
 const gameAddress = "0xf1B6448aA3c904b50b27b4283587Cf5E8209524C";
+const migrationContractAddress = "0xdcd48A39B9769B59938FFaa0C53a93F74dD69633";
 let approvedTokens = web3.utils.toBN("50000000000000000000000");
 
 //const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
@@ -146,4 +148,22 @@ export const pullIsPlaying = async (playingAddress) => {
   var myContract = new web3.eth.Contract(gameABI, gameAddress);
   let status = await myContract.methods.isActive(playingAddress).call();
   return status;
+};
+export const migrateTokens = async (tokenAmount) => {
+  console.log("Its reaching here");
+  var myContract = new web3.eth.Contract(
+    migrationABI,
+    migrationContractAddress
+  );
+  await myContract.methods
+    .migrateTokens(tokenAmount)
+    .send({ from: window.ethereum.selectedAddress });
+  console.log("Tokens migrated");
+};
+
+export const approveCustomTokenAmount = async (tokenAmount) => {
+  var myContract = new web3.eth.Contract(MCFabi, contractAddress);
+  await myContract.methods
+    .approve(migrationContractAddress, web3.utils.toBN(tokenAmount))
+    .send({ from: window.ethereum.selectedAddress });
 };

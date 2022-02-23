@@ -7,15 +7,15 @@ import {
 } from "react-router-dom";
 import { Stats } from "../src/Pages/Home";
 import { Layout } from "./Layout/Layout";
-import { LuckyScratchPage } from "./Pages/LuckyScratchPage";
+
 function App() {
   return (
     <Router>
       <Layout>
         <Switch>
-          <Route exact path="/stats" component={Stats} />
-          <Route exact path="/lucky-scratch" component={LuckyScratchPage} />
-          <Redirect to="/lucky-scratch" />
+          <Route exact path="/" component={Stats} />
+
+          <Redirect to="/" />
         </Switch>
       </Layout>
     </Router>
