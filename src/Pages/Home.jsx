@@ -15,7 +15,7 @@ import lowCable from "../Images/mid cable smol.png";
 import { Spinner } from "../components/Spinner/Spinner";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
-const migrationContractAddress = "0x74A6b8D20c55aC1564D42C596041Fb90c5f780ee";
+const migrationContractAddress = "0x9322915b1790a55897b4f6Fe52Bd66382Fed027d";
 
 const ethereum = window.ethereum;
 if (ethereum) {
@@ -31,7 +31,7 @@ export const Stats = () => {
   const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
-    buttonText: "Coming Soon",
+    buttonText: "APPROVE MCF",
   });
   const [claimableBalance, setClaimable] = useState("");
   const [wallet, setWallet] = useState("");
@@ -42,7 +42,7 @@ export const Stats = () => {
         if (accounts.length > 0) {
           setApproveToken({
             isApproved: false,
-            buttonText: "Coming Soon",
+            buttonText: "MIGRATE!",
           });
           setWallet(accounts[0]);
           pullBalance(accounts[0]);
@@ -156,7 +156,7 @@ export const Stats = () => {
                 : "bg-gray-700 cursor-pointer"
             } transition-all	py-2 px-3 rounded-xl font-bold text-yellow mb-2 z-40`}
             onClick={handleApproveTokenClick}
-            disabled
+            disabled={isLoading}
           >
             {buttonText}
           </button>
