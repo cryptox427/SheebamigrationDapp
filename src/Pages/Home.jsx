@@ -129,6 +129,9 @@ export const Stats = () => {
       <img src={upperCables} alt="" />
       <div className="totalDivs w-full md:w-10/12 lg:w-1/2">
         <span className="NumberColor">IGNITE MIGRATION TOOL</span>
+        <span className="">
+          New Contract: 0x7DA1aBb446c735E2064464b1d125834857dDEE7F
+        </span>
       </div>
       <img src={midCable} alt="" />
       <div className="divsBoxContainer rounded w-3/4 md:w-1/2 lg:w-1/4">
