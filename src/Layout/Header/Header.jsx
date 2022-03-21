@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Web3modal from "../../Utils/walletInteract";
 import {
   connectWallet,
   getCurrentWalletConnected,
@@ -67,23 +67,7 @@ export const Header = () => {
         </div>
         <div className="middleContainer"></div>
         <div className="rightContainer">
-          <button
-            className="connectWalletButton"
-            onClick={connectWalletPressed}
-          >
-            <span className="shadow"></span>
-            <span className="edge"></span>
-            {walletAddress.length > 0 ? (
-              <span className="front text">
-                {"Connected: " +
-                  String(walletAddress).substring(0, 6) +
-                  "..." +
-                  String(walletAddress).substring(38)}
-              </span>
-            ) : (
-              <span className="front text">Connect your wallet</span>
-            )}
-          </button>
+          <Web3modal />
         </div>
       </div>
     </div>

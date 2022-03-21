@@ -9,23 +9,26 @@ import {
 } from "react-router-dom";
 import { Stats } from "../src/Pages/Home";
 import { Layout } from "./Layout/Layout";
-
+import store from "../src/redux/store";
+import { Provider } from "react-redux";
 function App() {
   return (
-    <Router>
-      <BackgroundComponent
-        url={BackgroundImage}
-        className="font-lapsus w-screen h-screen overflow-scroll"
-      >
-        <Layout>
-          <Switch>
-            <Route exact path="/" component={Stats} />
+    <Provider store={store}>
+      <Router>
+        <BackgroundComponent
+          url={BackgroundImage}
+          className="font-lapsus w-screen h-screen overflow-scroll"
+        >
+          <Layout>
+            <Switch>
+              <Route exact path="/" component={Stats} />
 
-            <Redirect to="/" />
-          </Switch>
-        </Layout>
-      </BackgroundComponent>
-    </Router>
+              <Redirect to="/" />
+            </Switch>
+          </Layout>
+        </BackgroundComponent>
+      </Router>
+    </Provider>
   );
 }
 
