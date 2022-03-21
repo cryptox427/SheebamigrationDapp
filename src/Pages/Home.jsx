@@ -9,9 +9,8 @@ import {
   migrateTokens,
 } from "../Utils/walletInteract";
 import MCFabi from "../ABI/mcfabi.json";
-import upperCables from "../Images/top cable double.png";
-import midCable from "../Images/mid cable double.png";
-import lowCable from "../Images/mid cable smol.png";
+import { woodBoxesInitialState } from "../components/woodBoxes";
+import { WoodBoxes } from "../components/woodBoxesComponent";
 import { Spinner } from "../components/Spinner/Spinner";
 const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
 const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
@@ -31,8 +30,9 @@ export const Stats = () => {
   const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
   const [approveToken, setApproveToken] = useState({
     isApproved: false,
-    buttonText: "APPROVE MCF",
+    buttonText: "APPROVE ",
   });
+  const [woodBoxes, setWoodBoxes] = useState(woodBoxesInitialState);
   const [claimableBalance, setClaimable] = useState("");
   const [wallet, setWallet] = useState("");
   const { isApproved, buttonText } = approveToken;
@@ -125,15 +125,12 @@ export const Stats = () => {
 
   console.log(wallet);
   return (
-    <div className="flex flex-col items-center mb-10 mx-auto w-11/12">
-      <img src={upperCables} alt="" />
+    <div className="flex flex-col items-center mb-10 mx-auto w-11/12 gap-12">
       <div className="totalDivs w-full md:w-10/12 lg:w-1/2">
-        <span className="NumberColor">IGNITE MIGRATION TOOL</span>
-        <span className="">
-          New Contract: 0x7DA1aBb446c735E2064464b1d125834857dDEE7F
-        </span>
+        <span className="NumberColor">SHEEBA INU MIGRATION</span>
+        <span className="">New Contract: 0XXX</span>
       </div>
-      <img src={midCable} alt="" />
+
       <div className="divsBoxContainer rounded w-3/4 md:w-1/2 lg:w-1/4">
         <span className="textAboveDivs"> Your balance to be migrated:</span>
         <div className="claimableDividends">
@@ -146,7 +143,6 @@ export const Stats = () => {
           )}
         </div>
       </div>
-      <img src={lowCable} alt="" />
 
       <div className="multiBoxContainer flex flex-col">
         {isLoading && <Spinner />}

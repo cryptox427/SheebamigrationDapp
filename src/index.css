@@ -28,7 +28,9 @@
 }
 
 .text-shadow {
-  text-shadow: 2px 0 0 #db1c12, -2px 0 0 #db1c12, 0 2px 0 #db1c12, 0 -2px 0 #db1c12, 1px 1px #db1c12, -1px -1px 0 #db1c12, 1px -1px 0 #db1c12, -1px 1px 0 #db1c12;
+  text-shadow: 2px 0 0 #db1c12, -2px 0 0 #db1c12, 0 2px 0 #db1c12,
+    0 -2px 0 #db1c12, 1px 1px #db1c12, -1px -1px 0 #db1c12, 1px -1px 0 #db1c12,
+    -1px 1px 0 #db1c12;
 }
 
 .text-yellow {
@@ -55,13 +57,13 @@
   justify-content: space-between;
   align-items: center;
   border-style: solid;
-  border-top-color: #db1c12;
-  border-bottom-color: #db1c12;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
   border-top-width: 5px;
   border-bottom-width: 5px;
   border-left-width: 0px;
   border-right-width: 0px;
-  background-color: #fcff2e;
+  background-color: transparent;
 }
 
 .connectWalletButton {

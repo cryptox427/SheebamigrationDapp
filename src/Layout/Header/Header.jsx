@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import logo from "../../Images/logo.png";
 
 import {
   connectWallet,
@@ -58,10 +57,7 @@ export const Header = () => {
     <div className="mainHeaderContainer">
       <div className="flex flex-col gap-10 p-5 inContain sm:flex-row sm:gap-0 sm:py-0">
         <div className="leftContainer">
-          <a
-            href="https://memecoinfactory.com/"
-            className="connectWalletButton"
-          >
+          <a href="https://sheebainu.io/" className="connectWalletButton">
             <button className="connectWalletButton">
               <span className="shadow"></span>
               <span className="edge"></span>
@@ -69,16 +65,7 @@ export const Header = () => {
             </button>
           </a>
         </div>
-        <div className="middleContainer">
-          <div
-            style={{
-              backgroundImage: `url(${logo})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center center",
-            }}
-            className="h-20 w-56"
-          />
-        </div>
+        <div className="middleContainer"></div>
         <div className="rightContainer">
           <button
             className="connectWalletButton"
