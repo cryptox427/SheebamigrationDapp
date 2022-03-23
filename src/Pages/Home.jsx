@@ -111,7 +111,7 @@ export const Stats = () => {
       setWallet(address);
       addWalletListener();
       try {
-        //pullBalance(address);
+        pullBalance(address);
       } catch {}
 
       if (wallet.length > 0) {
@@ -130,7 +130,7 @@ export const Stats = () => {
   return (
     <div className="flex flex-col items-center mb-10 mx-auto w-11/12 gap-12">
       <div className="totalDivs w-full md:w-10/12 lg:w-1/2">
-        <span className="NumberColor">SHEEBA INU MIGRATION</span>
+        <span className="NumberColor">SHEEBA MIGRATION</span>
         <span className="">New Contract: 0XXX</span>
       </div>
 
