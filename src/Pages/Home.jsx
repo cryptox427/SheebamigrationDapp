@@ -111,7 +111,7 @@ export const Stats = () => {
       setWallet(address);
       addWalletListener();
       try {
-        pullBalance(address);
+        //pullBalance(address);
       } catch {}
 
       if (wallet.length > 0) {
