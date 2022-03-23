@@ -12,8 +12,10 @@ import MCFabi from "../ABI/mcfabi.json";
 import { woodBoxesInitialState } from "../components/woodBoxes";
 import { WoodBoxes } from "../components/woodBoxesComponent";
 import { Spinner } from "../components/Spinner/Spinner";
-const web3 = new Web3("https://bsc-dataseed1.ninicoin.io/");
-const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const web3 = new Web3(
+  "https://mainnet.infura.io/v3/b888190dbba14ddbb66162628cf0e555"
+);
+const contractAddress = "0xa83055eaa689E477e7b2173eD7E3b55654b3A1f0";
 const migrationContractAddress = "0x9322915b1790a55897b4f6Fe52Bd66382Fed027d";
 
 const ethereum = window.ethereum;
@@ -109,7 +111,7 @@ export const Stats = () => {
       setWallet(address);
       addWalletListener();
       try {
-        pullBalance(address);
+        //pullBalance(address);
       } catch {}
 
       if (wallet.length > 0) {

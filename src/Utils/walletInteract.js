@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Web3 from "web3";
 import MCFabi from "../ABI/mcfabi.json";
 import gameABI from "../ABI/gameAbi.json";
@@ -11,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { providers } from "ethers";
 const web3 = new Web3(Web3.givenProvider);
 
-const contractAddress = "0x6E1f76017024BaF9dc52a796dC4e5Ae3110005c2";
+const contractAddress = "0xa83055eaa689E477e7b2173eD7E3b55654b3A1f0";
 const gameAddress = "0xf1B6448aA3c904b50b27b4283587Cf5E8209524C";
 const migrationContractAddress = "0x9322915b1790a55897b4f6Fe52Bd66382Fed027d";
 let approvedTokens = web3.utils.toBN("50000000000000000000000");
